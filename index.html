@@ -75,7 +75,7 @@ button, input, select { font: inherit; color: inherit; }
 .age-card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 12px 36px -18px rgba(30,36,72,.35); }
 .age-card label { font-weight: 600; font-size: .95rem; display: block; margin-bottom: 6px; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-input[type=date], input[type=number], input[type=text], input[type=tel], select {
+input[type=date], input[type=number], input[type=text], input[type=tel], input[type=email], input[type=password], select {
   border: 1.5px solid var(--line); background: var(--paper); border-radius: 10px; padding: 9px 12px; min-width: 0;
 }
 .btn { border: 0; cursor: pointer; border-radius: 10px; padding: 9px 16px; font-weight: 600; background: var(--ink); color: var(--paper); }
@@ -142,6 +142,36 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .add-item { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
 .add-item input { flex: 1; padding: 7px 10px; font-size: .92rem; }
 .add-item .btn { padding: 7px 12px; font-size: .9rem; }
+
+/* Account (cloud.js) */
+[hidden] { display: none !important; }
+.acct-btn { margin-left: auto; flex: none; display: flex; align-items: center; gap: 6px; max-width: 42vw; border: 1.5px solid var(--line); background: var(--card); border-radius: 999px; padding: 4px 12px 4px 4px; font-weight: 600; font-size: .85rem; cursor: pointer; white-space: nowrap; }
+.acct-btn.out { padding-left: 12px; }
+.acct-btn .nm { overflow: hidden; text-overflow: ellipsis; }
+.av { width: 24px; height: 24px; border-radius: 50%; background: var(--lamp); color: #1E2448; display: inline-grid; place-items: center; font-size: .75rem; font-weight: 800; flex: none; }
+dialog.acct-dlg { border: 0; border-radius: 20px; padding: 0; width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); background: var(--card); color: var(--ink); box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .5); }
+dialog.acct-dlg::backdrop { background: rgba(17, 21, 43, .55); }
+.dlg-in { padding: 22px; display: grid; gap: 14px; }
+.dlg-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.field { display: grid; gap: 4px; font-size: .9rem; font-weight: 600; }
+.field input { font-weight: 400; width: 100%; }
+.btn.full { width: 100%; }
+.btn:disabled { opacity: .55; cursor: progress; }
+.or { text-align: center; font-size: .8rem; color: var(--muted); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); border-radius: 10px; padding: 3px; }
+.seg button { border: 0; background: none; padding: 7px; border-radius: 8px; cursor: pointer; font-weight: 600; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+.box { background: var(--paper); border-radius: 12px; padding: 14px; display: grid; gap: 8px; }
+.box h4 { margin: 0; font-size: .95rem; }
+.inline { display: flex; gap: 6px; }
+.inline input { flex: 1; min-width: 0; }
+.code { font-family: ui-monospace, Menlo, monospace; font-size: 1.4rem; letter-spacing: .15em; font-weight: 700; user-select: all; }
+.members { display: flex; flex-wrap: wrap; gap: 6px; }
+.members span { background: var(--paper); border-radius: 999px; padding: 3px 10px 3px 3px; display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; }
+.msg { border-radius: 10px; padding: 10px 12px; font-size: .9rem; background: var(--amber-soft); }
+.msg.ok { background: var(--green-soft); }
+.sync-hint { margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+@media (max-width: 480px) { .acct-btn .nm { display: none; } .acct-btn { padding-right: 4px; } .acct-btn.out .nm { display: inline; } .acct-btn.out { padding-right: 12px; } }
 
 /* Daily */
 .daily { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
@@ -321,6 +351,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
       <a href="#bat-thuong">Bất thường</a>
       <a href="#lien-he">Liên hệ</a>
     </nav>
+    <button class="acct-btn" id="acctBtn" type="button" data-open-acct hidden>Đăng nhập</button>
   </div>
 </header>
 
@@ -372,6 +403,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
         <h2>Những việc cần làm mỗi ngày</h2>
         <p class="muted prose"><span class="js-only">Ghi lại cữ bú, số tã và tích những việc đã xong. Danh sách tự làm mới lúc 0 giờ; số liệu 7 ngày gần nhất được giữ lại để mang theo khi đi khám.</span><span class="nojs-only">Những việc nhỏ lặp lại mỗi ngày trong 6 tháng đầu.</span></p>
       </div>
+      <div class="callout sync-hint" id="syncHint" hidden></div>
       <div class="daily">
         <div class="daily-log js-only">
           <div class="row" style="justify-content:space-between;align-items:baseline"><h3>Nhật ký hôm nay</h3><span class="small muted" id="dayDate"></span></div>
@@ -967,6 +999,10 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   </section>
 </main>
 
+<dialog class="acct-dlg" id="acctDlg" aria-labelledby="acctTitle">
+  <div class="dlg-in" id="acctBody"></div>
+</dialog>
+
 <footer>
   <div class="wrap stack">
     <p><strong>Lưu ý:</strong> Nội dung chỉ để tham khảo, tổng hợp theo khuyến nghị của WHO, Viện Hàn lâm Nhi khoa Hoa Kỳ (AAP), CDC và Bộ Y tế Việt Nam. Trang không thay thế việc thăm khám. Mọi thuốc cho trẻ dưới 6 tháng chỉ dùng khi có chỉ định của bác sĩ.</p>
@@ -979,9 +1015,15 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
    (ví dụ mở file trong trình xem trước của WhatsApp), trang vẫn hiển thị đầy đủ. */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
+/* Dữ liệu dùng chung trong gia đình khi đã đăng nhập (xem cloud.js). Các khóa khác (tab đang mở…) chỉ lưu trên máy. */
+const SYNC_KEYS = ['dob', 'checks', 'customChecks', 'dayTasksCustom', 'mine'];
+const cloud = { active: false, me: '' };
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  set(k, v, fromCloud) {
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+    if (!fromCloud && cloud.active && SYNC_KEYS.includes(k)) cloud.pushState(k, v);
+  }
 };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -1012,26 +1054,39 @@ if (stRange && stItems.length) {
 }
 
 /* ---------- Mỗi ngày ----------
-   'dayLog' = { 'YYYY-MM-DD': { done: {khóa việc: true}, feeds: [mốc thời gian], wet, dirty } }, giữ 14 ngày gần nhất.
+   'dayLog' = { 'YYYY-MM-DD': { done: {khóa việc: true}, feeds: [mốc thời gian | { t, by }], wet, dirty } }, giữ 14 ngày gần nhất.
+   Khi ghi chung theo gia đình, mỗi lần bú là { t, by } (by = tên người ghi) và mọi thay đổi đi qua dayOp
+   để cloud.js gửi lên dưới dạng thao tác nguyên tử, hai người bấm cùng lúc không đè lên nhau.
    'dayTasksCustom' = [{ id, t }] — việc tự thêm, lặp lại mỗi ngày. */
 const pad2 = n => String(n).padStart(2, '0');
 const dayKey = (d = new Date()) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 const hm = ts => { const d = new Date(ts); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
+const feedT = f => typeof f === 'number' ? f : f.t;
 let today = dayKey();
 const emptyDay = () => ({ done: {}, feeds: [], wet: 0, dirty: 0 });
 function updateToday(fn) {
   const log = store.get('dayLog', {});
-  fn(log[today] = log[today] || emptyDay());
+  fn(log[today] = Object.assign(emptyDay(), log[today]));
   Object.keys(log).sort().slice(0, -14).forEach(k => delete log[k]);
   store.set('dayLog', log);
   renderDay();
+}
+function applyDayOp(t, op) {
+  if (op.type === 'feed+') t.feeds.push(op.entry);
+  else if (op.type === 'feed-') { const i = t.feeds.map(feedT).lastIndexOf(feedT(op.entry)); if (i >= 0) t.feeds.splice(i, 1); }
+  else if (op.type === 'inc') t[op.f] = Math.max(0, (t[op.f] || 0) + op.d);
+  else if (op.type === 'done') { if (op.v) t.done[op.k] = true; else delete t.done[op.k]; }
+}
+function dayOp(op) {
+  updateToday(t => applyDayOp(t, op));
+  if (cloud.active) cloud.dayOp(today, op);
 }
 const dayBoxes = () => $$('#dayTasks input[type=checkbox]');
 function renderDayCustom() {
   $('#dayCustom').innerHTML = store.get('dayTasksCustom', []).map(it => `<div class="custom-row"><label class="check-item" for="dt-c${it.id}"><input type="checkbox" id="dt-c${it.id}" data-k="c${it.id}"><span>${esc(it.t)}</span></label><button class="linkbtn" type="button" data-del="${it.id}" aria-label="Xóa ${esc(it.t)}">Xóa</button></div>`).join('');
 }
 function renderDay() {
-  const log = store.get('dayLog', {}), t = log[today] || emptyDay();
+  const log = store.get('dayLog', {}), t = Object.assign(emptyDay(), log[today]);
   const boxes = dayBoxes();
   boxes.forEach(c => { c.checked = !!t.done[c.dataset.k]; });
   const n = boxes.filter(c => c.checked).length;
@@ -1040,10 +1095,11 @@ function renderDay() {
   $('#cFeeds').textContent = t.feeds.length; $('#cWet').textContent = t.wet; $('#cDirty').textContent = t.dirty;
   $('#dayDate').textContent = new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'numeric' });
 
-  const feeds = Object.keys(log).sort().flatMap(k => log[k].feeds || []), last = feeds[feeds.length - 1];
+  const feeds = Object.keys(log).flatMap(k => log[k].feeds || []);
+  const last = feeds.reduce((a, f) => (!a || feedT(f) >= feedT(a) ? f : a), null);
   if (last) {
-    const mins = Math.max(0, Math.floor((Date.now() - last) / 60000));
-    $('#lastFeed').innerHTML = `<b>Lần bú gần nhất</b>${hm(last)} · ${mins < 1 ? 'vừa xong' : (mins < 60 ? mins + ' phút' : Math.floor(mins / 60) + ' giờ ' + (mins % 60) + ' phút') + ' trước'}`;
+    const lt = feedT(last), mins = Math.max(0, Math.floor((Date.now() - lt) / 60000));
+    $('#lastFeed').innerHTML = `<b>Lần bú gần nhất</b>${hm(lt)} · ${mins < 1 ? 'vừa xong' : (mins < 60 ? mins + ' phút' : Math.floor(mins / 60) + ' giờ ' + (mins % 60) + ' phút') + ' trước'}${last.by ? ` · ${esc(last.by)} ghi` : ''}`;
   } else {
     $('#lastFeed').innerHTML = '<b>Lần bú gần nhất</b>Bấm “+ Thêm” ở ô Cữ bú mỗi khi bé bú xong để theo dõi giờ bú.';
   }
@@ -1060,12 +1116,12 @@ function renderDay() {
 }
 $('#dayTasks').addEventListener('change', e => {
   const c = e.target; if (c.type !== 'checkbox') return;
-  updateToday(t => { if (c.checked) t.done[c.dataset.k] = true; else delete t.done[c.dataset.k]; });
+  dayOp({ type: 'done', k: c.dataset.k, v: c.checked });
 });
 $('#dayTasks').addEventListener('click', e => {
   const id = e.target.dataset && e.target.dataset.del; if (!id) return;
   store.set('dayTasksCustom', store.get('dayTasksCustom', []).filter(it => it.id !== id));
-  renderDayCustom(); updateToday(t => { delete t.done['c' + id]; });
+  renderDayCustom(); dayOp({ type: 'done', k: 'c' + id, v: false });
 });
 $('#dayAdd').addEventListener('submit', e => {
   e.preventDefault();
@@ -1077,12 +1133,14 @@ $('#dayAdd').addEventListener('submit', e => {
 $('#counters').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const plus = b.dataset.plus, minus = b.dataset.minus;
-  updateToday(t => {
-    if (plus === 'feeds') t.feeds.push(Date.now());
-    else if (minus === 'feeds') t.feeds.pop();
-    else if (plus) t[plus]++;
-    else if (minus) t[minus] = Math.max(0, t[minus] - 1);
-  });
+  const cur = Object.assign(emptyDay(), store.get('dayLog', {})[today]);
+  if (plus === 'feeds') dayOp({ type: 'feed+', entry: cloud.active ? { t: Date.now(), by: cloud.me } : Date.now() });
+  else if (minus === 'feeds') {
+    if (!cur.feeds.length) return;
+    dayOp({ type: 'feed-', entry: cur.feeds.reduce((a, f) => (feedT(f) >= feedT(a) ? f : a)) });
+  }
+  else if (plus) dayOp({ type: 'inc', f: plus, d: 1 });
+  else if (minus && cur[minus] > 0) dayOp({ type: 'inc', f: minus, d: -1 });
 });
 /* Sang ngày mới khi trang vẫn mở: làm mới danh sách; cập nhật "x phút trước" mỗi phút. */
 function tickDay() { today = dayKey(); renderDay(); }
@@ -1129,14 +1187,18 @@ checkCards.forEach((card, gi) => {
     renderCustom(gi); countChecks();
   });
 });
-const savedChecks = store.get('checks', {});
-$$('#checkGrid input[type=checkbox]:not([data-k^="c"])').forEach(c => { c.checked = !!savedChecks[c.dataset.k]; });
+function refreshChecklist() {
+  const saved = store.get('checks', {});
+  $$('#checkGrid input[type=checkbox]:not([data-k^="c"])').forEach(c => { c.checked = !!saved[c.dataset.k]; });
+  checkCards.forEach((card, gi) => renderCustom(gi));
+  countChecks();
+}
+refreshChecklist();
 $('#checkGrid').addEventListener('change', e => {
   const c = e.target; if (c.type !== 'checkbox') return;
   const d = store.get('checks', {}); d[c.dataset.k] = c.checked; store.set('checks', d); countChecks();
 });
 $('#checkReset').addEventListener('click', () => { store.set('checks', {}); boxesIn($('#checkGrid')).forEach(c => { c.checked = false; }); countChecks(); });
-countChecks();
 
 /* ---------- Milestones & vaccines ---------- */
 const monthBtns = $$('.month'), monthBlocks = $$('.ms-month');
@@ -1324,4 +1386,9 @@ if ('IntersectionObserver' in window) {
 }
 
 renderAge();
+
+/* Vẽ lại mọi phần dùng dữ liệu chung, khi dữ liệu gia đình tải về hoặc khi đăng xuất. */
+function refreshAll() { renderAge(); refreshChecklist(); renderDayCustom(); renderDay(); renderMine(); }
 </script>
+<script src="firebase-config.js"></script>
+<script src="cloud.js"></script>
