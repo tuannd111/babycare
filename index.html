@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sổ Tay 180 Ngày Đầu</title>
+<script>document.documentElement.classList.add('js')</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sổ tay đêm khuya — nền giấy xanh mát, mực xanh than, điểm nhấn vàng "đèn ngủ"; 26 chấm = 26 tuần làm sợi chỉ xuyên suốt */
+:root {
+  --paper: #F4F6FB;
+  --card: #FFFFFF;
+  --ink: #1E2448;
+  --muted: #5A6188;
+  --line: #DCE0EF;
+  --lamp: #F5B83D;      /* vàng đèn ngủ — chỉ dùng làm nền/khối */
+  --lamp-soft: #FDF0D2;
+  --sky: #6F9FE0;
+  --sky-soft: #E3ECFB;
+  --red: #C73E3E; --red-soft: #FBE5E3;
+  --amber: #B97508; --amber-soft: #FCEFD6;
+  --green: #23845A; --green-soft: #DDF2E7;
+  --display: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+  --body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #11152B; --card: #1A1F3A; --ink: #E9EBF7; --muted: #A3A9CC; --line: #2C3358;
+  --lamp: #F5B83D; --lamp-soft: #3A3220; --sky: #8DB4EE; --sky-soft: #1F2B4D;
+  --red: #F08080; --red-soft: #3D1F25; --amber: #F2B95A; --amber-soft: #3A2E18; --green: #6CCB9C; --green-soft: #183327;
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --paper: #11152B; --card: #1A1F3A; --ink: #E9EBF7; --muted: #A3A9CC; --line: #2C3358;
+  --lamp: #F5B83D; --lamp-soft: #3A3220; --sky: #8DB4EE; --sky-soft: #1F2B4D;
+  --red: #F08080; --red-soft: #3D1F25; --amber: #F2B95A; --amber-soft: #3A2E18; --green: #6CCB9C; --green-soft: #183327;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; }
+h3 { font-size: 1.25rem; font-weight: 700; }
+p { margin: 0; }
+a { color: inherit; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.prose { max-width: 66ch; }
+.muted { color: var(--muted); }
+.small { font-size: .875rem; }
+.eyebrow { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+
+/* Top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 1.15rem; white-space: nowrap; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.brand-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--lamp); box-shadow: 0 0 0 4px var(--lamp-soft); flex: none; }
+.nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { white-space: nowrap; text-decoration: none; font-size: .9rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; color: var(--muted); }
+.nav a:hover, .nav a.on { background: var(--sky-soft); color: var(--ink); }
+
+/* Hero */
+.hero { padding-block: 48px 40px; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 800; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; background: linear-gradient(transparent 62%, var(--lamp) 62%); padding: 0 .08em; }
+.hero .lede { font-size: 1.12rem; margin-top: 16px; color: var(--muted); max-width: 52ch; }
+.age-card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 12px 36px -18px rgba(30,36,72,.35); }
+.age-card label { font-weight: 600; font-size: .95rem; display: block; margin-bottom: 6px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+input[type=date], input[type=number], input[type=text], input[type=tel], select {
+  border: 1.5px solid var(--line); background: var(--paper); border-radius: 10px; padding: 9px 12px; min-width: 0;
+}
+.btn { border: 0; cursor: pointer; border-radius: 10px; padding: 9px 16px; font-weight: 600; background: var(--ink); color: var(--paper); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.lamp { background: var(--lamp); color: #1E2448; }
+.age-big { font-family: var(--display); font-size: 2.1rem; font-weight: 800; margin-top: 14px; line-height: 1.1; }
+.tag { display: inline-block; font-size: .75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--lamp-soft); color: var(--ink); vertical-align: middle; }
+.weeks { display: grid; grid-template-columns: repeat(13, 1fr); gap: 6px; margin: 16px 0 6px; }
+.wk { aspect-ratio: 1; border-radius: 50%; background: var(--line); max-width: 100%; }
+.wk.past { background: var(--sky); }
+.wk.now { background: var(--lamp); box-shadow: 0 0 0 3px var(--lamp-soft); animation: glow 2.4s ease-in-out infinite; }
+@keyframes glow { 50% { box-shadow: 0 0 0 6px var(--lamp-soft); } }
+.weeks-legend { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); }
+.age-notes { display: grid; gap: 10px; margin-top: 16px; }
+.note { background: var(--paper); border-radius: 12px; padding: 10px 12px; font-size: .93rem; }
+.note b { display: block; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+
+/* Sections */
+section.block { padding-block: 56px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 10px; margin-bottom: 28px; }
+.sec-num { font-family: var(--display); font-weight: 700; color: var(--muted); font-size: 1rem; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.tab { border: 1.5px solid var(--line); background: var(--card); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-weight: 500; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.two > * { min-width: 0; }
+ul.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ul.ticks li { padding-left: 26px; position: relative; }
+ul.ticks li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--lamp); }
+ul.ticks.no li::before { background: var(--red); border-radius: 2px; transform: rotate(45deg); }
+.callout { border-radius: 12px; padding: 14px 16px; background: var(--sky-soft); font-size: .95rem; }
+.callout.warn { background: var(--red-soft); }
+.callout.lampy { background: var(--lamp-soft); }
+.stack { display: grid; gap: 14px; }
+
+/* Stomach */
+.stomach { display: grid; gap: 12px; }
+.stomach-vis { display: flex; align-items: center; gap: 18px; min-height: 140px; }
+.ball { border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff8, transparent 45%), var(--lamp); transition: width .35s, height .35s; flex: none; }
+.stomach input[type=range] { width: 100%; accent-color: var(--sky); }
+.ticks-row { display: flex; justify-content: space-between; font-size: .8rem; color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll-x { overflow-x: auto; }
+
+/* Checklist */
+.progress { height: 12px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--lamp); width: 0; transition: width .3s; }
+.check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.check-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
+.check-card h3 { font-size: 1.1rem; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.check-card h3 span { font-family: var(--body); font-size: .8rem; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+.check-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; cursor: pointer; font-size: .95rem; }
+.check-item input { width: 19px; height: 19px; margin-top: 3px; accent-color: var(--ink); flex: none; }
+.check-item small { display: block; color: var(--muted); font-size: .82rem; }
+.check-item input:checked + span { text-decoration: line-through; text-decoration-color: var(--muted); color: var(--muted); }
+.custom-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.custom-row .check-item { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.add-item { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.add-item input { flex: 1; padding: 7px 10px; font-size: .92rem; }
+.add-item .btn { padding: 7px 12px; font-size: .9rem; }
+
+/* Milestones */
+.months { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 18px; }
+.month { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 10px 4px; cursor: pointer; text-align: center; font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; }
+.month small { display: block; font-family: var(--body); font-size: .7rem; font-weight: 500; color: var(--muted); }
+.month[aria-pressed="true"] { background: var(--lamp); border-color: var(--lamp); color: #1E2448; }
+.month[aria-pressed="true"] small { color: #1E2448; }
+.ms-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ms-cols > div { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
+.ms-cols h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.vax { margin-top: 32px; }
+.vax-line { display: grid; gap: 0; margin-top: 14px; }
+.vax-row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.vax-row .when { font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
+.vax-row.next { background: var(--lamp-soft); border-radius: 10px; padding-left: 10px; padding-right: 10px; }
+.pill { display: inline-block; font-size: .78rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; margin: 2px 4px 2px 0; }
+.pill.free { background: var(--green-soft); color: var(--green); }
+.pill.paid { background: var(--sky-soft); color: var(--ink); }
+
+/* Mind */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare > div { border-radius: var(--r); padding: 20px; min-width: 0; }
+.compare .a { background: var(--sky-soft); }
+.compare .b { background: var(--red-soft); }
+.breath { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
+.breath-ring { width: 200px; height: 200px; max-width: 100%; border-radius: 50%; border: 2px dashed var(--line); display: grid; place-items: center; position: relative; margin: 0 auto; }
+.breath-dot { width: 70px; height: 70px; border-radius: 50%; background: var(--lamp); transition: transform 4s ease-in-out; display: grid; place-items: center; }
+.breath-ring.in .breath-dot { transform: scale(2.4); }
+.breath-label { position: absolute; font-family: var(--display); font-weight: 700; font-size: 1.1rem; color: #1E2448; }
+.cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cards3 > div { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; min-width: 0; }
+
+/* Myths */
+.myths { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.flip { display: block; width: 100%; border: 0; background: none; padding: 0; text-align: left; font: inherit; color: inherit; }
+.flip-in { display: grid; }
+.face { padding: 18px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--line); }
+.face.front { background: var(--card); border-radius: var(--r) var(--r) 0 0; }
+.face.back { background: var(--green-soft); border-color: transparent; border-radius: 0 0 var(--r) var(--r); }
+.face .lbl { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.face.front .lbl { color: var(--red); }
+.face.back .lbl { color: var(--green); }
+.face .q { font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.25; }
+.face .hint { margin-top: auto; font-size: .8rem; color: var(--muted); }
+.face.back .txt { font-size: .92rem; }
+.js .flip { perspective: 1000px; cursor: pointer; min-height: 210px; }
+.js .flip-in { display: block; position: relative; height: 100%; min-height: 210px; transition: transform .5s; transform-style: preserve-3d; }
+.js .flip[aria-pressed="true"] .flip-in { transform: rotateY(180deg); }
+.js .face { position: absolute; inset: 0; border-radius: var(--r); backface-visibility: hidden; }
+.js .face.back { transform: rotateY(180deg); }
+
+/* Quiz */
+.quiz { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 26px; max-width: 720px; }
+.quiz-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.quiz-q { font-family: var(--display); font-size: 1.5rem; font-weight: 700; margin: 16px 0 18px; line-height: 1.25; }
+.quiz-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.quiz-btns .btn { min-width: 110px; }
+.quiz-ans { margin-top: 16px; border-radius: 12px; padding: 14px 16px; }
+.quiz-ans.ok { background: var(--green-soft); }
+.quiz-ans.no { background: var(--amber-soft); }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 24px; }
+.fact { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+.fact b { font-family: var(--display); font-size: 1.8rem; display: block; line-height: 1; margin-bottom: 6px; }
+
+/* Triage */
+.triage { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+.triage > * { min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1.5px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 13px; cursor: pointer; font-size: .9rem; text-align: left; }
+.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.result { border-radius: 18px; padding: 20px; position: sticky; top: 80px; background: var(--card); border: 1px solid var(--line); }
+.result.red { background: var(--red-soft); border-color: transparent; }
+.result.amber { background: var(--amber-soft); border-color: transparent; }
+.result.green { background: var(--green-soft); border-color: transparent; }
+.result .big { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1.15; margin-bottom: 8px; }
+.result.red .big { color: var(--red); }
+.result.amber .big { color: var(--amber); }
+.result.green .big { color: var(--green); }
+.lvl-title { font-weight: 700; font-size: .85rem; margin: 18px 0 8px; display: flex; align-items: center; gap: 8px; }
+.lvl-title i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.tools2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+.tools2 > div { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+.stool { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin: 14px 0; }
+.sw { aspect-ratio: 1; border-radius: 50%; border: 3px solid transparent; cursor: pointer; max-width: 100%; }
+.sw[aria-pressed="true"] { border-color: var(--ink); }
+.out { margin-top: 12px; border-radius: 12px; padding: 12px 14px; font-size: .95rem; background: var(--paper); }
+.out.red { background: var(--red-soft); } .out.amber { background: var(--amber-soft); } .out.green { background: var(--green-soft); }
+
+/* Contacts */
+.sos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+.sos > div { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+.sos .n { font-family: var(--display); font-size: 2.2rem; font-weight: 800; line-height: 1; user-select: all; }
+.sos .first { background: var(--red-soft); border-color: transparent; }
+.sos .first .n { color: var(--red); }
+.places { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 14px; }
+.place { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.place h3 { font-size: 1.05rem; }
+.place .kind { font-size: .78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.place a.map { margin-top: auto; font-size: .88rem; font-weight: 600; text-decoration: none; color: var(--ink); background: var(--sky-soft); align-self: flex-start; padding: 5px 12px; border-radius: 999px; }
+.mine { margin-top: 32px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; }
+.mine form { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr auto; gap: 8px; margin-top: 12px; }
+.mine-list { margin-top: 14px; display: grid; gap: 8px; }
+.mine-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; background: var(--paper); border-radius: 10px; padding: 10px 12px; flex-wrap: wrap; }
+.mine-row .ph { font-variant-numeric: tabular-nums; font-weight: 600; user-select: all; }
+.linkbtn { background: none; border: 0; cursor: pointer; color: var(--muted); font-size: .85rem; text-decoration: underline; padding: 4px; }
+
+/* Không có JavaScript: hiện toàn bộ nội dung; có JavaScript: bật tab, thẻ lật, công cụ */
+html:not(.js) .js-only { display: none !important; }
+.js .nojs-only { display: none !important; }
+.js .care-panel:not(.active), .js .ms-month:not(.active), .js .city-group:not(.active) { display: none; }
+.care-stack, .ms-stack, .city-stack { display: grid; gap: 20px; }
+.nojs-title { margin-bottom: 14px; font-size: 1.35rem; }
+.js .nojs-title { display: none; }
+html:not(.js) .breath, html:not(.js) .triage { grid-template-columns: 1fr; }
+.next-lbl { font-family: var(--body); font-weight: 500; font-size: .8rem; color: var(--muted); }
+.vax-row:not(.next) .next-lbl { display: none; }
+.quiz-list { display: grid; gap: 10px; max-width: 720px; }
+.qz { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+.qz summary { cursor: pointer; font-weight: 600; }
+.qz p { margin-top: 8px; }
+.stool-list { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: .95rem; }
+.stool-list i { display: inline-block; width: 18px; height: 18px; border-radius: 50%; vertical-align: -4px; margin-right: 8px; border: 1px solid var(--line); }
+
+footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size: .88rem; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .hero-grid, .two, .triage, .compare, .tools2, .breath { grid-template-columns: 1fr; }
+  .ms-cols, .cards3 { grid-template-columns: 1fr; }
+  .sos { grid-template-columns: 1fr 1fr; }
+  .mine form { grid-template-columns: 1fr 1fr; }
+  .result { position: static; }
+  .brand span.full { display: none; }
+}
+@media (max-width: 480px) {
+  .months { grid-template-columns: repeat(4, 1fr); }
+  .stool { grid-template-columns: repeat(4, 1fr); }
+  .vax-row { grid-template-columns: 1fr; gap: 4px; }
+  .mine form { grid-template-columns: 1fr; }
+  .panel { padding: 18px; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><i class="brand-dot"></i><span>180 Ngày<span class="full"> Đầu</span></span></a>
+    <nav class="nav" id="nav" aria-label="Mục lục">
+      <a href="#cham-soc">Chăm bé</a>
+      <a href="#chuan-bi">Chuẩn bị</a>
+      <a href="#phat-trien">Phát triển</a>
+      <a href="#tam-ly">Tâm lý</a>
+      <a href="#hieu-lam">Hiểu lầm</a>
+      <a href="#thu-vi">Thú vị</a>
+      <a href="#bat-thuong">Bất thường</a>
+      <a href="#lien-he">Liên hệ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Cẩm nang cho bố mẹ có con 0–6 tháng</p>
+        <h1>26 tuần đầu tiên, <em>từng bước một</em>.</h1>
+        <p class="lede">Mọi thứ bố mẹ trẻ cần trong một trang: cách chăm bé, đồ cần sắp sẵn, chuyện tâm lý, các mẹo dân gian nên bỏ, dấu hiệu cần đi khám và nơi để gọi khi cần giúp.</p>
+        <div class="row" style="margin-top:22px">
+          <a class="btn lamp" href="#bat-thuong" style="text-decoration:none">Bé có dấu hiệu lạ?</a>
+          <a class="btn ghost" href="#chuan-bi" style="text-decoration:none">Danh sách cần chuẩn bị</a>
+        </div>
+      </div>
+      <div class="age-card" aria-live="polite">
+        <div class="nojs-only">
+          <div class="age-big" style="margin-top:0">26 tuần</div>
+          <div class="muted small">Từ ngày đầu tiên đến ngày thứ 180</div>
+          <div class="weeks" aria-hidden="true"><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i><i class="wk"></i></div>
+          <div class="weeks-legend"><span>Tuần 1</span><span>Tuần 13 (3 tháng)</span><span>Tuần 26</span></div>
+          <div class="note" style="margin-top:16px"><b>Mẹo</b>Mở trang bằng Safari hoặc Chrome để nhập ngày sinh, xem bé đang ở tuần nào và mũi tiêm sắp tới.</div>
+        </div>
+        <div class="js-only">
+        <label for="dob">Bé nhà bạn sinh ngày nào?</label>
+        <div class="row">
+          <input type="date" id="dob">
+          <button class="btn ghost" id="dobClear" type="button">Xóa</button>
+        </div>
+        <div class="age-big" id="ageBig">—</div>
+        <div class="muted small" id="ageSub"></div>
+        <div class="weeks" id="weeks" aria-hidden="true"></div>
+        <div class="weeks-legend"><span>Tuần 1</span><span>Tuần 13 (3 tháng)</span><span>Tuần 26</span></div>
+        <div class="age-notes">
+          <div class="note"><b>Tuần này bé có thể</b><span id="ageTip"></span></div>
+          <div class="note"><b>Mũi tiêm sắp tới</b><span id="ageVax"></span></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. CHĂM BÉ -->
+  <section class="block" id="cham-soc">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">01 · Hằng ngày</span>
+        <h2>Cách chăm em bé</h2>
+        <p class="muted prose">Sáu việc chiếm gần hết một ngày của bố mẹ.<span class="js-only"> Chọn một chủ đề để xem.</span></p>
+      </div>
+      <div class="tabs js-only" role="tablist" id="careTabs"><button class="tab" role="tab" type="button" aria-selected="true">Bú &amp; ăn</button><button class="tab" role="tab" type="button" aria-selected="false">Giấc ngủ</button><button class="tab" role="tab" type="button" aria-selected="false">Tắm &amp; rốn</button><button class="tab" role="tab" type="button" aria-selected="false">Tã &amp; đi ngoài</button><button class="tab" role="tab" type="button" aria-selected="false">Dỗ bé khóc</button><button class="tab" role="tab" type="button" aria-selected="false">Ợ hơi &amp; trớ</button></div>
+      <div class="care-stack">
+<div class="panel care-panel active" role="tabpanel"><h3 class="nojs-title">Bú &amp; ăn</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Sữa mẹ là đủ trong 6 tháng đầu</h3>
+        <ul class="ticks">
+          <li>Bú theo nhu cầu, thường 8–12 lần mỗi 24 giờ trong những tuần đầu.</li>
+          <li><strong>Dấu hiệu đói sớm:</strong> mút tay, chép miệng, quay đầu tìm vú. Khóc là dấu hiệu đói muộn.</li>
+          <li><strong>Ngậm bắt vú đúng:</strong> miệng mở rộng, môi dưới vểnh ra, cằm chạm vú, ngậm cả phần quầng vú.</li>
+          <li><strong>Bé bú đủ khi:</strong> từ ngày 5–6 có ít nhất 6 tã ướt/ngày, lấy lại cân nặng lúc sinh sau 10–14 ngày.</li>
+          <li><strong>Sữa công thức:</strong> pha đúng tỉ lệ trên hộp, dùng nước đun sôi để nguội còn khoảng 70°C, pha xong dùng trong 2 giờ.</li>
+        </ul>
+      </div>
+      <div class="stomach">
+        <h3>Dạ dày bé lớn cỡ nào?</h3>
+        <p class="muted small"><span class="js-only">Kéo thanh trượt để xem. </span>Bé bú ít mỗi cữ là đúng, vì dạ dày còn rất nhỏ.</p>
+        <div class="stomach-vis"><div class="ball" id="ball" style="width:34px;height:34px"></div><div><div style="font-family:var(--display);font-weight:800;font-size:1.6rem" id="stName">Quả anh đào</div><div class="muted" id="stMl">5–7 ml mỗi cữ</div></div></div>
+        <input class="js-only" type="range" id="stRange" min="0" max="3" step="1" value="0" aria-label="Ngày tuổi">
+        <div class="ticks-row js-only"><span>Ngày 1</span><span>Ngày 3</span><span>Ngày 10</span><span>1 tháng</span></div>
+        <ul class="ticks nojs-only" id="stomachList"><li data-px="34" data-name="Quả anh đào" data-ml="5–7 ml mỗi cữ"><strong>Ngày 1:</strong> quả anh đào, 5–7 ml mỗi cữ</li><li data-px="60" data-name="Quả óc chó" data-ml="22–27 ml mỗi cữ"><strong>Ngày 3:</strong> quả óc chó, 22–27 ml mỗi cữ</li><li data-px="86" data-name="Quả mơ" data-ml="45–60 ml mỗi cữ"><strong>Ngày 10:</strong> quả mơ, 45–60 ml mỗi cữ</li><li data-px="116" data-name="Quả trứng gà" data-ml="80–150 ml mỗi cữ"><strong>1 tháng:</strong> quả trứng gà, 80–150 ml mỗi cữ</li></ul>
+      </div>
+    </div></div>
+<div class="panel care-panel" role="tabpanel"><h3 class="nojs-title">Giấc ngủ</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Ngủ an toàn: nằm ngửa, nôi riêng, mặt phẳng trống</h3>
+        <ul class="ticks">
+          <li>Đặt bé <strong>nằm ngửa</strong> ở mọi giấc ngủ, kể cả giấc ngắn ban ngày.</li>
+          <li>Ngủ cùng phòng nhưng <strong>không chung giường</strong>, ít nhất 6 tháng đầu.</li>
+          <li>Nệm cứng, phẳng, ga bọc vừa khít. Không gối, chăn dày, thú bông, thanh chắn.</li>
+          <li>Không để bé quá nóng; không đội mũ khi ngủ trong nhà; không có khói thuốc.</li>
+          <li>Ngừng quấn khi bé bắt đầu có dấu hiệu lật, thường khoảng 2–4 tháng.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="scroll-x"><table>
+          <tr><th>Tuổi</th><th>Tổng giờ ngủ/ngày</th><th>Đặc điểm</th></tr>
+          <tr><td>0–3 tháng</td><td class="num">14–17 giờ</td><td>Giấc ngắn 2–4 giờ, thức dậy để bú cả đêm</td></tr>
+          <tr><td>4–6 tháng</td><td class="num">12–16 giờ</td><td>Giấc đêm dài dần, 2–3 giấc ngày</td></tr>
+        </table></div>
+        <div class="callout"><strong>Phân biệt ngày đêm:</strong> ban ngày để phòng sáng, trò chuyện bình thường; ban đêm đèn mờ, cho bú và thay tã thật nhẹ nhàng, ít nói chuyện.</div>
+      </div>
+    </div></div>
+<div class="panel care-panel" role="tabpanel"><h3 class="nojs-title">Tắm &amp; rốn</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Tắm</h3>
+        <ul class="ticks">
+          <li>2–3 lần mỗi tuần là đủ, mỗi lần 5–10 phút. Những ngày khác lau mặt, cổ, mông.</li>
+          <li>Phòng kín gió, nước khoảng 37°C: thử bằng khuỷu tay thấy ấm dễ chịu.</li>
+          <li>Chuẩn bị sẵn khăn, quần áo, tã trước khi cởi đồ cho bé.</li>
+          <li><strong>Không bao giờ rời tay khỏi bé</strong> khi đang ở trong chậu, dù chỉ vài giây.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Dây rốn</h3>
+        <ul class="ticks">
+          <li>Thường rụng sau 1–3 tuần.</li>
+          <li>Giữ khô, sạch, để hở. Gập mép tã xuống dưới rốn.</li>
+          <li>Không bôi nghệ, cồn, kem, thuốc lá… nếu bác sĩ không chỉ định.</li>
+        </ul>
+        <div class="callout warn small">Đi khám nếu chân rốn đỏ lan rộng, sưng, chảy mủ, có mùi hôi hoặc chảy máu không cầm.</div>
+      </div>
+    </div></div>
+<div class="panel care-panel" role="tabpanel"><h3 class="nojs-title">Tã &amp; đi ngoài</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Số tã ướt cho thấy bé bú đủ</h3>
+        <div class="scroll-x"><table>
+          <tr><th>Ngày tuổi</th><th>Tã ướt tối thiểu</th><th>Phân</th></tr>
+          <tr><td>Ngày 1–2</td><td class="num">1–2</td><td>Phân su đen, dính</td></tr>
+          <tr><td>Ngày 3–4</td><td class="num">3–4</td><td>Chuyển màu xanh nâu</td></tr>
+          <tr><td>Từ ngày 5</td><td class="num">6 trở lên</td><td>Vàng, lợn cợn như hạt (bú mẹ)</td></tr>
+        </table></div>
+      </div>
+      <div class="stack">
+        <ul class="ticks">
+          <li>Bé bú mẹ có thể đi ngoài sau mỗi cữ, hoặc sau 6 tuần có khi vài ngày mới đi một lần. Phân mềm thì không phải táo bón.</li>
+          <li>Lau từ trước ra sau, nhất là với bé gái.</li>
+          <li>Phòng hăm: thay tã 2–3 giờ/lần, để mông thoáng vài phút, bôi kem có oxit kẽm.</li>
+        </ul>
+        <div class="callout small">Xem <a href="#bat-thuong">thẻ màu phân</a> để biết màu nào cần đi khám.</div>
+      </div>
+    </div></div>
+<div class="panel care-panel" role="tabpanel"><h3 class="nojs-title">Dỗ bé khóc</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Kiểm tra nhanh trước</h3>
+        <ul class="ticks">
+          <li>Đói? (lần bú gần nhất)</li>
+          <li>Tã bẩn, ướt?</li>
+          <li>Nóng hay lạnh? Sờ gáy bé, không sờ tay chân.</li>
+          <li>Mệt, buồn ngủ, quá nhiều kích thích?</li>
+          <li>Cần ợ hơi, hoặc chỉ cần được bế?</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Cách 5S giúp bé dịu lại</h3>
+        <div class="scroll-x"><table>
+          <tr><td><strong>Quấn</strong></td><td>Quấn chặt tay, lỏng ở hông</td></tr>
+          <tr><td><strong>Nghiêng</strong></td><td>Bế nghiêng hoặc úp trên tay bạn (chỉ khi bế, luôn đặt nằm ngửa khi ngủ)</td></tr>
+          <tr><td><strong>Suỵt</strong></td><td>“Shhh” đều đặn, to gần bằng tiếng khóc</td></tr>
+          <tr><td><strong>Đung đưa</strong></td><td>Nhịp nhẹ, đỡ chắc đầu cổ</td></tr>
+          <tr><td><strong>Mút</strong></td><td>Cho bú hoặc ngậm ti giả</td></tr>
+        </table></div>
+      </div>
+    </div></div>
+<div class="panel care-panel" role="tabpanel"><h3 class="nojs-title">Ợ hơi &amp; trớ</h3>
+    <div class="two">
+      <div class="stack">
+        <h3>Vỗ ợ hơi</h3>
+        <ul class="ticks">
+          <li>Vỗ giữa cữ (khi đổi bên) và sau khi bú, khoảng 1–3 phút.</li>
+          <li>Ba tư thế: bế dựng tựa vai; ngồi trên đùi đỡ cằm; nằm sấp ngang đùi bạn.</li>
+          <li>Vỗ hoặc xoa nhẹ lưng từ dưới lên. Không ợ được cũng không sao.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Trớ hay nôn?</h3>
+        <ul class="ticks">
+          <li><strong>Trớ:</strong> sữa trào ra ít, sau bú, bé vẫn vui vẻ, tăng cân tốt. Bình thường.</li>
+          <li>Giữ bé dựng 15–20 phút sau bú, tránh cho bú quá no.</li>
+        </ul>
+        <div class="callout warn small">Đi khám khi bé nôn vọt mạnh nhiều lần, nôn ra dịch xanh hoặc có máu, hoặc bỏ bú, sụt cân.</div>
+      </div>
+    </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CHUẨN BỊ -->
+  <section class="block" id="chuan-bi">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">02 · Sắm sửa</span>
+        <h2>Những thứ cần chuẩn bị</h2>
+        <p class="muted prose">Tích vào món đã có.<span class="js-only"> Thiếu món gì, thêm vào cuối mỗi nhóm.</span> Trang sẽ nhớ trên trình duyệt này. Không cần mua hết một lúc: nhóm “Ngủ”, “Vệ sinh” và “Sức khỏe” là quan trọng nhất cho tuần đầu.</p>
+      </div>
+      <div class="row js-only" style="justify-content:space-between">
+        <strong id="checkCount">0/0 món</strong>
+        <button class="linkbtn" id="checkReset" type="button">Bỏ tích tất cả</button>
+      </div>
+      <div class="progress js-only" style="margin-top:8px"><i id="checkBar"></i></div>
+      <div class="check-grid" id="checkGrid">
+        <div class="check-card"><h3>Ngủ <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-0-0"><input type="checkbox" id="ck-0-0" data-k="0-0"><span>Nôi hoặc cũi đạt chuẩn, nệm cứng vừa khít</span></label>
+          <label class="check-item" for="ck-0-1"><input type="checkbox" id="ck-0-1" data-k="0-1"><span>Ga bọc chun (2–3 cái)</span></label>
+          <label class="check-item" for="ck-0-2"><input type="checkbox" id="ck-0-2" data-k="0-2"><span>Khăn quấn hoặc túi ngủ (3–4 cái)<small>Không cần gối, chăn dày, thanh chắn</small></span></label>
+        </div>
+        <div class="check-card"><h3>Bú &amp; ăn <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-1-0"><input type="checkbox" id="ck-1-0" data-k="1-0"><span>Gối/khăn hỗ trợ cho con bú</span></label>
+          <label class="check-item" for="ck-1-1"><input type="checkbox" id="ck-1-1" data-k="1-1"><span>Máy hút sữa và túi trữ sữa<small>Nếu mẹ sắp đi làm</small></span></label>
+          <label class="check-item" for="ck-1-2"><input type="checkbox" id="ck-1-2" data-k="1-2"><span>Bình sữa 2–4 cái, núm sơ sinh</span></label>
+          <label class="check-item" for="ck-1-3"><input type="checkbox" id="ck-1-3" data-k="1-3"><span>Dụng cụ rửa và tiệt trùng bình</span></label>
+          <label class="check-item" for="ck-1-4"><input type="checkbox" id="ck-1-4" data-k="1-4"><span>Kem dưỡng đầu ti, miếng lót thấm sữa</span></label>
+        </div>
+        <div class="check-card"><h3>Vệ sinh <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-2-0"><input type="checkbox" id="ck-2-0" data-k="2-0"><span>Tã sơ sinh (size NB)<small>Khoảng 8–12 cái mỗi ngày</small></span></label>
+          <label class="check-item" for="ck-2-1"><input type="checkbox" id="ck-2-1" data-k="2-1"><span>Khăn xô, khăn ướt không mùi</span></label>
+          <label class="check-item" for="ck-2-2"><input type="checkbox" id="ck-2-2" data-k="2-2"><span>Kem chống hăm có oxit kẽm</span></label>
+          <label class="check-item" for="ck-2-3"><input type="checkbox" id="ck-2-3" data-k="2-3"><span>Chậu tắm, sữa tắm dịu nhẹ, khăn có mũ</span></label>
+          <label class="check-item" for="ck-2-4"><input type="checkbox" id="ck-2-4" data-k="2-4"><span>Bông, gạc vô trùng, nước muối sinh lý 0,9%</span></label>
+          <label class="check-item" for="ck-2-5"><input type="checkbox" id="ck-2-5" data-k="2-5"><span>Bấm móng tay trẻ em</span></label>
+        </div>
+        <div class="check-card"><h3>Quần áo <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-3-0"><input type="checkbox" id="ck-3-0" data-k="3-0"><span>6–8 bộ body / áo liền quần<small>Giặt trước bằng nước giặt dịu nhẹ</small></span></label>
+          <label class="check-item" for="ck-3-1"><input type="checkbox" id="ck-3-1" data-k="3-1"><span>Mũ, bao tay, bao chân, tất</span></label>
+          <label class="check-item" for="ck-3-2"><input type="checkbox" id="ck-3-2" data-k="3-2"><span>Áo khoác mỏng, khăn choàng</span></label>
+        </div>
+        <div class="check-card"><h3>Sức khỏe <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-4-0"><input type="checkbox" id="ck-4-0" data-k="4-0"><span>Nhiệt kế điện tử</span></label>
+          <label class="check-item" for="ck-4-1"><input type="checkbox" id="ck-4-1" data-k="4-1"><span>Dụng cụ hút mũi</span></label>
+          <label class="check-item" for="ck-4-2"><input type="checkbox" id="ck-4-2" data-k="4-2"><span>Sổ tiêm chủng, sổ khám bệnh</span></label>
+          <label class="check-item" for="ck-4-3"><input type="checkbox" id="ck-4-3" data-k="4-3"><span>Lưu số bác sĩ nhi và bệnh viện gần nhà<small>Xem mục Liên hệ</small></span></label>
+        </div>
+        <div class="check-card"><h3>Đi lại <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-5-0"><input type="checkbox" id="ck-5-0" data-k="5-0"><span>Địu trợ lực đúng tư thế chữ M</span></label>
+          <label class="check-item" for="ck-5-1"><input type="checkbox" id="ck-5-1" data-k="5-1"><span>Xe đẩy</span></label>
+          <label class="check-item" for="ck-5-2"><input type="checkbox" id="ck-5-2" data-k="5-2"><span>Ghế ô tô lắp quay ngược chiều<small>Nếu nhà đi ô tô</small></span></label>
+          <label class="check-item" for="ck-5-3"><input type="checkbox" id="ck-5-3" data-k="5-3"><span>Túi bỉm sữa</span></label>
+        </div>
+        <div class="check-card"><h3>Cho bố mẹ <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-6-0"><input type="checkbox" id="ck-6-0" data-k="6-0"><span>Đồ ăn nấu sẵn, trữ đông cho 1–2 tuần</span></label>
+          <label class="check-item" for="ck-6-1"><input type="checkbox" id="ck-6-1" data-k="6-1"><span>Áo lót cho con bú, băng vệ sinh sau sinh</span></label>
+          <label class="check-item" for="ck-6-2"><input type="checkbox" id="ck-6-2" data-k="6-2"><span>Bình nước lớn đặt cạnh chỗ cho bú</span></label>
+          <label class="check-item" for="ck-6-3"><input type="checkbox" id="ck-6-3" data-k="6-3"><span>Lịch chia ca đêm giữa bố và mẹ</span></label>
+        </div>
+        <div class="check-card"><h3>Giấy tờ <span class="cc js-only"></span></h3>
+          <label class="check-item" for="ck-7-0"><input type="checkbox" id="ck-7-0" data-k="7-0"><span>Đăng ký khai sinh (trong 60 ngày)<small>Có thể làm liên thông khai sinh, thường trú, BHYT trên Cổng dịch vụ công / VNeID</small></span></label>
+          <label class="check-item" for="ck-7-1"><input type="checkbox" id="ck-7-1" data-k="7-1"><span>Thẻ BHYT cho trẻ dưới 6 tuổi (miễn phí)</span></label>
+          <label class="check-item" for="ck-7-2"><input type="checkbox" id="ck-7-2" data-k="7-2"><span>Hồ sơ hưởng chế độ thai sản cho bố và mẹ</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PHÁT TRIỂN -->
+  <section class="block" id="phat-trien">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">03 · Thông tin cần biết</span>
+        <h2>Bé lớn lên từng tháng</h2>
+        <p class="muted prose">Mỗi bé có nhịp riêng, chênh vài tuần là bình thường. Cột “Nên hỏi bác sĩ” là những điều nên mang đi khám để được đánh giá, không phải để lo lắng.</p>
+      </div>
+      <div class="months js-only" id="months"><button class="month" type="button" aria-pressed="true">0<small>sơ sinh</small></button><button class="month" type="button" aria-pressed="false">1<small>tháng</small></button><button class="month" type="button" aria-pressed="false">2<small>tháng</small></button><button class="month" type="button" aria-pressed="false">3<small>tháng</small></button><button class="month" type="button" aria-pressed="false">4<small>tháng</small></button><button class="month" type="button" aria-pressed="false">5<small>tháng</small></button><button class="month" type="button" aria-pressed="false">6<small>tháng</small></button></div>
+      <div class="ms-stack">
+        <div class="ms-month active"><h3 class="nojs-title">Sơ sinh</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Nhìn rõ trong khoảng 20–30 cm, thích nhìn mặt người</li><li>Nắm chặt ngón tay đặt vào lòng bàn tay</li><li>Giật mình, vung tay khi nghe tiếng động (phản xạ Moro)</li><li>Quay đầu tìm vú khi được chạm vào má</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Da kề da với bố hoặc mẹ</li><li>Nói chuyện, hát ru ở gần mặt bé</li><li>Cho nằm sấp vài phút khi bé thức và có người trông</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Bú rất yếu hoặc không chịu bú</li><li>Người mềm nhũn hoặc cứng đờ bất thường</li><li>Không giật mình khi có tiếng động lớn</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">1 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Ngẩng đầu thoáng chốc khi nằm sấp</li><li>Nhìn theo vật di chuyển gần mặt</li><li>Phản ứng với giọng nói quen</li><li>Bắt đầu phát ra âm thanh nhỏ</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Cho xem tranh đen trắng, tương phản cao</li><li>Nằm sấp 3–5 phút, vài lần mỗi ngày</li><li>Lặp lại âm thanh bé phát ra</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Không phản ứng với tiếng động lớn</li><li>Không nhìn theo mặt người</li><li>Bú kém, không tăng cân</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">2 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Cười khi bố mẹ nói chuyện</li><li>Ê a, “ồ”, “à”</li><li>Ngẩng đầu khi nằm sấp</li><li>Nhìn theo bạn khi bạn di chuyển</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Trò chuyện mặt đối mặt, chờ bé “trả lời”</li><li>Treo đồ chơi màu sắc ngoài tầm tay</li><li>Đọc sách tranh to, giọng diễn cảm</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Chưa cười với người</li><li>Không nhìn theo vật hoặc người</li><li>Không đưa tay lên miệng</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">3 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Giữ đầu vững hơn khi được bế dựng</li><li>Mở bàn tay, đưa tay lên miệng</li><li>Đạp chân mạnh khi nằm ngửa</li><li>Nhận ra mặt và giọng bố mẹ</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Đặt đồ chơi cho bé với tay đập vào</li><li>Cho bé soi gương</li><li>Massage nhẹ sau khi tắm</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Đầu còn lắc lư nhiều khi bế dựng</li><li>Không theo dõi đồ vật bằng mắt</li><li>Không ê a đáp lại</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">4 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Giữ đầu vững không cần đỡ</li><li>Chống tay khi nằm sấp</li><li>Cười thành tiếng</li><li>Cầm và lắc đồ chơi</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Đưa xúc xắc cho bé cầm</li><li>Chơi ú òa</li><li>Gọi tên bé từ các hướng khác nhau</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Không giữ được đầu</li><li>Không cười, không ê a</li><li>Không đưa đồ vật lên miệng</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">5 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Lật từ sấp sang ngửa</li><li>Với lấy đồ vật bằng cả hai tay</li><li>Nhận ra người quen, có thể lạ người</li><li>Thích tiếng của chính mình</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Đặt đồ chơi xa một chút để bé tập với</li><li>Hát những bài có động tác tay</li><li>Cho bé chơi trên thảm sạch, rộng</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Không với lấy đồ vật</li><li>Người quá cứng hoặc quá mềm</li><li>Không phản ứng khi gọi</li></ul></div>
+        </div></div>
+        <div class="ms-month"><h3 class="nojs-title">6 tháng tuổi</h3><div class="ms-cols">
+          <div><h3>Bé thường làm được</h3><ul class="ticks"><li>Lật hai chiều</li><li>Ngồi được khi có đỡ</li><li>Bập bẹ “ba ba”, “ma ma”</li><li>Thể hiện sẵn sàng ăn dặm: ngồi vững có đỡ, há miệng khi thấy thìa</li></ul></div>
+          <div><h3>Bố mẹ chơi cùng bé</h3><ul class="ticks"><li>Bắt đầu ăn dặm khoảng 6 tháng theo hướng dẫn của bác sĩ</li><li>Đọc sách, gọi tên đồ vật</li><li>Chơi trò cho – nhận đồ vật</li></ul></div>
+          <div><h3>Nên hỏi bác sĩ nếu</h3><ul class="ticks no"><li>Không lật</li><li>Không cười thành tiếng</li><li>Không với đồ vật hoặc không quay về phía tiếng động</li></ul></div>
+        </div></div>
+      </div>
+
+      <div class="vax">
+        <h3>Lịch tiêm chủng 0–6 tháng</h3>
+        <p class="muted small" style="margin-top:4px">Theo chương trình Tiêm chủng mở rộng (miễn phí tại trạm y tế phường/xã) và các vắc xin dịch vụ thường được tư vấn. Lịch cụ thể do bác sĩ tiêm chủng chỉ định. Nhớ mang sổ tiêm chủng mỗi lần đi.</p>
+        <div class="vax-line" id="vaxLine">
+          <div class="vax-row" data-day="0" data-short="Trong 24 giờ: Viêm gan B sơ sinh"><div class="when">Trong 24 giờ<div class="next-lbl">sắp tới</div></div><div><div>Viêm gan B sơ sinh <span class="pill free">Miễn phí</span></div></div></div>
+          <div class="vax-row" data-day="7" data-short="Trong tháng đầu: Lao"><div class="when">Trong tháng đầu<div class="next-lbl">sắp tới</div></div><div><div>Lao (BCG) <span class="pill free">Miễn phí</span></div></div></div>
+          <div class="vax-row" data-day="42" data-short="Từ 6 tuần: Rotavirus, Phế cầu"><div class="when">Từ 6 tuần<div class="next-lbl">sắp tới</div></div><div><div>Rotavirus (uống) <span class="pill paid">Dịch vụ</span></div><div>Phế cầu <span class="pill paid">Dịch vụ</span></div></div></div>
+          <div class="vax-row" data-day="60" data-short="2 tháng: 5 trong 1, Bại liệt uống, Hoặc 6 trong 1 thay 5 trong 1, Não mô cầu"><div class="when">2 tháng<div class="next-lbl">sắp tới</div></div><div><div>5 trong 1 (bạch hầu, ho gà, uốn ván, viêm gan B, Hib) – mũi 1 <span class="pill free">Miễn phí</span></div><div>Bại liệt uống (OPV) – lần 1 <span class="pill free">Miễn phí</span></div><div>Hoặc 6 trong 1 thay 5 trong 1 <span class="pill paid">Dịch vụ</span></div><div>Não mô cầu <span class="pill paid">Dịch vụ</span></div></div></div>
+          <div class="vax-row" data-day="90" data-short="3 tháng: 5 trong 1, Bại liệt uống"><div class="when">3 tháng<div class="next-lbl">sắp tới</div></div><div><div>5 trong 1 – mũi 2 <span class="pill free">Miễn phí</span></div><div>Bại liệt uống – lần 2 <span class="pill free">Miễn phí</span></div></div></div>
+          <div class="vax-row" data-day="120" data-short="4 tháng: 5 trong 1, Bại liệt uống"><div class="when">4 tháng<div class="next-lbl">sắp tới</div></div><div><div>5 trong 1 – mũi 3 <span class="pill free">Miễn phí</span></div><div>Bại liệt uống – lần 3 <span class="pill free">Miễn phí</span></div></div></div>
+          <div class="vax-row" data-day="150" data-short="5 tháng: Bại liệt tiêm"><div class="when">5 tháng<div class="next-lbl">sắp tới</div></div><div><div>Bại liệt tiêm (IPV) – mũi 1 <span class="pill free">Miễn phí</span></div></div></div>
+          <div class="vax-row" data-day="180" data-short="6 tháng: Cúm"><div class="when">6 tháng<div class="next-lbl">sắp tới</div></div><div><div>Cúm (2 mũi cách nhau 4 tuần ở lần đầu) <span class="pill paid">Dịch vụ</span></div></div></div>
+          <div class="vax-row"><div class="when muted">9 tháng</div><div class="muted">Sởi, bại liệt tiêm mũi 2 (ngoài phạm vi 6 tháng, để bố mẹ chuẩn bị trước)</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TÂM LÝ -->
+  <section class="block" id="tam-ly">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">04 · Cho bố và mẹ</span>
+        <h2>Tâm lý cần có</h2>
+        <p class="muted prose">Mệt, rối, đôi khi muốn khóc là phản ứng bình thường khi cuộc sống đảo lộn. Biết trước những gì sẽ đến giúp cả nhà đỡ hoảng.</p>
+      </div>
+
+      <div class="compare">
+        <div class="a">
+          <h3>Buồn sau sinh (baby blues)</h3>
+          <p class="small muted" style="margin:4px 0 12px">Gặp ở phần lớn các mẹ</p>
+          <ul class="ticks">
+            <li>Bắt đầu khoảng ngày 2–3 sau sinh</li>
+            <li>Dễ khóc, cáu, lo âu, tâm trạng lên xuống</li>
+            <li>Tự hết trong vòng 2 tuần</li>
+            <li>Cần: ngủ đủ hơn, ăn uống, có người chia sẻ</li>
+          </ul>
+        </div>
+        <div class="b">
+          <h3>Trầm cảm sau sinh</h3>
+          <p class="small muted" style="margin:4px 0 12px">Cả mẹ và bố đều có thể bị</p>
+          <ul class="ticks no">
+            <li>Kéo dài hơn 2 tuần, hoặc nặng dần</li>
+            <li>Buồn sâu, mất hứng thú, thấy mình vô dụng</li>
+            <li>Khó gắn bó với con, mất ngủ cả khi con ngủ</li>
+            <li><strong>Có ý nghĩ làm hại bản thân hoặc con: gặp bác sĩ ngay trong ngày</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:24px">
+        <div class="breath">
+          <div class="breath-ring js-only" id="ring"><div class="breath-dot"></div><span class="breath-label" id="breathLabel">Bắt đầu</span></div>
+          <div class="stack">
+            <h3>Nút thở 1 phút</h3>
+            <p class="muted">Lúc con khóc mãi không nín, đó là lúc bố mẹ cần bình tĩnh nhất. Hít vào 4 giây, giữ 4 giây, thở ra 4 giây, nghỉ 4 giây. Lặp lại 4 vòng.</p>
+            <div class="row js-only"><button class="btn lamp" id="breathBtn" type="button">Thở cùng tôi</button><span class="small muted" id="breathCount"></span></div>
+            <div class="callout warn small"><strong>Không bao giờ lắc em bé.</strong> Nếu quá căng thẳng, đặt bé nằm ngửa an toàn trong nôi, ra phòng khác 5–10 phút rồi quay lại. Bé khóc thêm vài phút không sao; lắc bé có thể gây tổn thương não vĩnh viễn.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards3" style="margin-top:24px">
+        <div>
+          <h3>Chia ca, đừng chia điểm</h3>
+          <p class="muted small" style="margin-top:6px">Chia đêm làm hai ca, mỗi người được ngủ liền 4–5 tiếng. Bố có thể lo ợ hơi, thay tã, tắm bé để mẹ nghỉ giữa các cữ bú.</p>
+        </div>
+        <div>
+          <h3>“Đủ tốt” là đủ</h3>
+          <p class="muted small" style="margin-top:6px">Nhà bừa một chút, bé khóc một chút là chuyện thường. Ưu tiên ba việc: bé ăn, bé an toàn, bố mẹ được nghỉ.</p>
+        </div>
+        <div>
+          <h3>Nhận giúp, lọc lời khuyên</h3>
+          <p class="muted small" style="margin-top:6px">Nhờ người thân nấu ăn, dọn dẹp thay vì chỉ bế bé. Với lời khuyên trái chiều, hỏi bác sĩ nhi một lần thay vì đọc mười diễn đàn.</p>
+        </div>
+      </div>
+
+      <div class="callout lampy" style="margin-top:16px">
+        <strong>Giai đoạn khóc nhiều nhất</strong> thường rơi vào tuần 6–8, hay vào chiều tối, rồi giảm dần đến khoảng tháng thứ 3–4. Đây là một giai đoạn phát triển bình thường, không phải lỗi của bố mẹ.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. HIỂU LẦM -->
+  <section class="block" id="hieu-lam">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">05 · Lật thẻ</span>
+        <h2>Những điều hay hiểu lầm</h2>
+        <p class="muted prose">Nhiều mẹo truyền miệng có thể gây hại. Chạm vào thẻ để xem sự thật.</p>
+      </div>
+      <div class="myths" id="myths">
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Trời nóng phải cho bé uống thêm nước lọc.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Trẻ dưới 6 tháng bú mẹ hoàn toàn đã đủ nước. Uống thêm nước làm bé no giả, bú ít đi, có thể gây rối loạn điện giải.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Sữa non vàng đặc là sữa “bẩn”, nên vắt bỏ.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Sữa non giàu kháng thể, được ví là “mũi vắc xin đầu đời”. Hãy cho bé bú sớm trong giờ đầu sau sinh.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Rơ lưỡi cho bé bằng mật ong.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Không cho trẻ dưới 12 tháng dùng mật ong dưới mọi hình thức vì nguy cơ ngộ độc botulinum. Lưỡi trắng do sữa thường tự hết.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Bôi nghệ, kem đánh răng lên rốn cho mau khô.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Rốn chỉ cần giữ khô, sạch và để hở. Bôi các chất lạ có thể gây nhiễm trùng.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Phải nặn đầu ti cho bé gái để sau này không bị tụt.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Vú bé sưng nhẹ là do nội tiết của mẹ, tự hết. Nặn có thể gây viêm, áp xe.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Bế nhiều bé sẽ hư, quen hơi.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Trẻ dưới 6 tháng không thể “hư” vì được đáp ứng. Được bế, được dỗ giúp bé an tâm và gắn bó.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Quấn thẳng chân thật chặt để chân bé thẳng.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Chân cong là bình thường và tự thẳng dần. Quấn chặt hông và chân có thể gây trật khớp háng.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Cạo trọc, cạo lông mày để tóc mọc dày.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Cạo không làm thay đổi số nang tóc. Tóc bé dày hay thưa là do di truyền.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Bé hay giật mình là “hết vía”.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Đó là phản xạ Moro, hoàn toàn bình thường ở trẻ sơ sinh và mất dần khoảng 4–6 tháng.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Vàng da chỉ cần phơi nắng là khỏi.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Phơi nắng không đủ để điều trị và có thể làm bé bỏng, mất nhiệt. Vàng da cần bác sĩ đánh giá, có khi phải chiếu đèn.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Cho bé nằm gối, gối chặn để đầu tròn và ngủ ngon.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Bé nên ngủ ngửa trên mặt phẳng trống, không gối, chăn, thú bông để giảm nguy cơ đột tử khi ngủ.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Sữa mẹ loãng là sữa không tốt.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Sữa đầu cữ loãng để giải khát, sữa cuối cữ đặc và béo. Cả hai đều tốt. Cho bú thường xuyên giúp tăng sữa.</span></span></span></button>
+        <button class="flip" type="button" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="lbl">Hiểu lầm</span><span class="q">Mẹ và bé phải kiêng tắm cả tháng.</span><span class="hint js-only">Chạm để xem sự thật →</span></span><span class="face back"><span class="lbl">Sự thật</span><span class="txt">Tắm nhanh bằng nước ấm trong phòng kín gió giúp sạch sẽ, dễ chịu và phòng nhiễm trùng da.</span></span></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. THÚ VỊ -->
+  <section class="block" id="thu-vi">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">06 · Đố vui</span>
+        <h2>Kiến thức thú vị</h2>
+        <p class="muted prose">Đúng hay sai? Thử đoán xem bạn hiểu em bé đến đâu.<span class="nojs-only"> Chạm vào từng câu để xem đáp án.</span></p>
+      </div>
+      <div class="quiz-list nojs-only" id="quizList">
+        <details class="qz" data-a="1"><summary>Trẻ sơ sinh có nhiều xương hơn người lớn.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Bé có khoảng 270–300 xương. Nhiều xương sẽ hợp nhất dần thành 206 xương khi trưởng thành.</span></p></details>
+        <details class="qz" data-a="0"><summary>Bé mới sinh đã nhìn thấy đủ màu sắc như người lớn.</summary><p><strong>Sai.</strong> <span class="qz-ex">Lúc đầu bé thấy rõ nhất các hình tương phản đen trắng. Khả năng nhìn màu hoàn thiện dần trong vài tháng.</span></p></details>
+        <details class="qz" data-a="1"><summary>Bé sơ sinh khóc thường chưa có nước mắt.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Tuyến lệ cần vài tuần đến vài tháng để tiết đủ nước mắt.</span></p></details>
+        <details class="qz" data-a="0"><summary>Dạ dày bé ngày đầu tiên to bằng quả trứng gà.</summary><p><strong>Sai.</strong> <span class="qz-ex">Chỉ cỡ quả anh đào, chứa khoảng 5–7 ml. Đến khoảng 1 tháng mới cỡ quả trứng.</span></p></details>
+        <details class="qz" data-a="0"><summary>Chạm nhẹ vào thóp khi gội đầu là nguy hiểm.</summary><p><strong>Sai.</strong> <span class="qz-ex">Thóp được bảo vệ bởi một lớp màng chắc. Chạm nhẹ khi gội hoặc vuốt tóc là an toàn.</span></p></details>
+        <details class="qz" data-a="1"><summary>Bé đã nghe được giọng bố mẹ từ khi còn trong bụng.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Thính giác bắt đầu hoạt động từ khoảng tuần thai 25. Bé sinh ra đã quen giọng mẹ.</span></p></details>
+        <details class="qz" data-a="0"><summary>Bé sơ sinh hắt hơi nhiều chắc chắn là bị cảm.</summary><p><strong>Sai.</strong> <span class="qz-ex">Hắt hơi là cách bé làm sạch mũi. Chỉ đáng lo khi kèm sốt, khó thở, bỏ bú.</span></p></details>
+        <details class="qz" data-a="1"><summary>Bé có thể nhận ra mùi của mẹ chỉ sau vài ngày.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Khứu giác của bé rất nhạy, giúp bé tìm vú và nhận ra mẹ từ rất sớm.</span></p></details>
+        <details class="qz" data-a="1"><summary>Bé sơ sinh chưa có xương bánh chè cứng.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Bánh chè lúc này vẫn là sụn mềm, sẽ cốt hóa dần trong những năm đầu.</span></p></details>
+        <details class="qz" data-a="1"><summary>Trẻ sơ sinh chủ yếu thở bằng mũi.</summary><p><strong>Đúng.</strong> <span class="qz-ex">Vì vậy nghẹt mũi làm bé khó bú. Nhỏ nước muối sinh lý giúp bé dễ thở hơn.</span></p></details>
+      </div>
+      <div class="quiz js-only" id="quiz">
+        <div class="quiz-top"><span class="eyebrow" id="quizProg"></span><span class="tag" id="quizScore"></span></div>
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-btns" id="quizBtns">
+          <button class="btn" type="button" data-a="1">Đúng</button>
+          <button class="btn ghost" type="button" data-a="0">Sai</button>
+        </div>
+        <div id="quizAns" hidden></div>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>20–30 cm</b>Khoảng bé nhìn rõ nhất lúc mới sinh, gần bằng khoảng cách từ mặt bé đến mặt mẹ khi bú.</div>
+        <div class="fact"><b>120–160</b>Nhịp tim mỗi phút của trẻ sơ sinh, nhanh gần gấp đôi người lớn.</div>
+        <div class="fact"><b>14–17 giờ</b>Thời gian ngủ mỗi ngày của trẻ sơ sinh, chia thành nhiều giấc ngắn.</div>
+        <div class="fact"><b>× 2</b>Nhiều bé tăng gấp đôi cân nặng lúc sinh vào khoảng 4–6 tháng tuổi.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. BẤT THƯỜNG -->
+  <section class="block" id="bat-thuong">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">07 · Nhận biết sớm</span>
+        <h2>Cách nhận biết bất thường</h2>
+        <p class="muted prose">Chọn những gì bạn đang thấy ở bé. Công cụ chỉ giúp sắp xếp mức độ khẩn cấp, không thay thế chẩn đoán. Khi phân vân, hãy gọi bác sĩ.</p>
+      </div>
+      <div class="triage">
+        <div id="symptoms">
+          <div class="lvl-title" data-lv="red"><i style="background:var(--red)"></i>Gọi 115 hoặc đến cấp cứu ngay</div><div class="chips"><button class="chip" type="button" aria-pressed="false" data-lv="red">Khó thở, thở rút lõm ngực, thở rên</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Môi, mặt tím tái</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Ngừng thở, lịm, khó đánh thức</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Co giật</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Sốt từ 38°C ở bé dưới 3 tháng</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Nôn ra dịch xanh hoặc có máu</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Phân có máu nhiều, phân đen (sau tuần đầu)</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Thóp phồng căng</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Bỏ bú hoàn toàn</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Hơn 8 giờ không có tã ướt</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Chấm, nốt đỏ tím không mất khi ấn</button><button class="chip" type="button" aria-pressed="false" data-lv="red">Ngã đập đầu rồi nôn, lừ đừ</button></div>
+          <div class="lvl-title" data-lv="amber"><i style="background:var(--amber)"></i>Đưa bé đi khám trong ngày</div><div class="chips"><button class="chip" type="button" aria-pressed="false" data-lv="amber">Sốt ở bé 3–6 tháng</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Vàng da lan xuống bụng, chân, hoặc kéo dài quá 2 tuần</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Phân bạc màu, nhạt màu</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Bú kém hẳn so với thường ngày</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Nôn nhiều lần, nôn vọt</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Tiêu chảy nhiều lần trong ngày</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Rốn đỏ, sưng, chảy mủ, có mùi</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Ho kéo dài, khò khè</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Mắt đỏ, nhiều ghèn</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Khóc thét, không dỗ được hơn 2–3 giờ</button><button class="chip" type="button" aria-pressed="false" data-lv="amber">Ban đỏ lan nhanh</button></div>
+          <div class="lvl-title" data-lv="green"><i style="background:var(--green)"></i>Thường bình thường, theo dõi tại nhà</div><div class="chips"><button class="chip" type="button" aria-pressed="false" data-lv="green">Hắt hơi, nấc cục</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Trớ ít sữa sau bú, vẫn vui</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Mụn sữa, hạt kê trên mặt</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Vảy da đầu (cứt trâu)</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Vú sưng nhẹ (cả bé trai và gái)</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Giật mình khi ngủ</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Thở không đều khi ngủ nhưng môi hồng, không rút lõm</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Vài ngày mới đi ngoài nhưng phân mềm</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Bé gái ra chút dịch hồng ở âm đạo tuần đầu</button><button class="chip" type="button" aria-pressed="false" data-lv="green">Mắt thỉnh thoảng lác (dưới 4 tháng)</button></div>
+        </div>
+        <div class="result js-only" id="triageOut" aria-live="polite"></div>
+      </div>
+
+      <div class="tools2">
+        <div>
+          <h3>Bé có sốt không?</h3>
+          <p class="muted small" style="margin-top:4px">Nhiệt độ bình thường khoảng 36,5–37,5°C. Đo nách bằng nhiệt kế điện tử.</p>
+          <div class="row js-only" style="margin-top:14px">
+            <label class="small" for="fAge">Tuổi bé</label>
+            <select id="fAge"><option value="0">Dưới 3 tháng</option><option value="1">3–6 tháng</option></select>
+            <label class="small" for="fTemp">Nhiệt độ</label>
+            <input type="number" id="fTemp" step="0.1" min="34" max="43" value="37.0" style="width:90px"> °C
+          </div>
+          <div class="out js-only" id="feverOut"></div>
+          <ul class="ticks nojs-only" style="margin-top:12px">
+            <li><strong>Bé dưới 3 tháng, từ 38°C:</strong> đi khám ngay, kể cả khi bé vẫn bú tốt.</li>
+            <li><strong>Bé 3–6 tháng, 38–38,9°C:</strong> gọi bác sĩ hoặc đi khám trong ngày.</li>
+            <li><strong>Từ 39°C:</strong> đưa bé đi khám ngay.</li>
+            <li><strong>Dưới 36°C:</strong> ủ ấm, da kề da, đo lại; vẫn thấp thì đi khám.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Thẻ màu phân</h3>
+          <p class="muted small" style="margin-top:4px">Phân bạc màu có thể là dấu hiệu teo đường mật, cần phát hiện trước 60 ngày tuổi. <span class="js-only">Chạm vào màu giống phân của bé nhất.</span></p>
+          <div class="stool js-only" id="stool"><button class="sw" type="button" style="background:#F2F0E8" aria-pressed="false" aria-label="Trắng như phấn" data-name="Trắng như phấn" data-lv="red"></button><button class="sw" type="button" style="background:#EDE3B8" aria-pressed="false" aria-label="Vàng rơm nhạt" data-name="Vàng rơm nhạt" data-lv="red"></button><button class="sw" type="button" style="background:#E6D7A0" aria-pressed="false" aria-label="Vàng kem nhạt" data-name="Vàng kem nhạt" data-lv="red"></button><button class="sw" type="button" style="background:#E7B530" aria-pressed="false" aria-label="Vàng tươi" data-name="Vàng tươi" data-lv="green"></button><button class="sw" type="button" style="background:#B98A2B" aria-pressed="false" aria-label="Vàng đậm, mù tạt" data-name="Vàng đậm, mù tạt" data-lv="green"></button><button class="sw" type="button" style="background:#6E8B3D" aria-pressed="false" aria-label="Xanh lá" data-name="Xanh lá" data-lv="green"></button><button class="sw" type="button" style="background:#7A5230" aria-pressed="false" aria-label="Nâu" data-name="Nâu" data-lv="green"></button></div>
+          <ul class="stool-list nojs-only"><li><i style="background:#F2F0E8"></i>Trắng như phấn: <strong>bất thường, đi khám sớm</strong></li><li><i style="background:#EDE3B8"></i>Vàng rơm nhạt: <strong>bất thường, đi khám sớm</strong></li><li><i style="background:#E6D7A0"></i>Vàng kem nhạt: <strong>bất thường, đi khám sớm</strong></li><li><i style="background:#E7B530"></i>Vàng tươi: <strong>bình thường</strong></li><li><i style="background:#B98A2B"></i>Vàng đậm, mù tạt: <strong>bình thường</strong></li><li><i style="background:#6E8B3D"></i>Xanh lá: <strong>bình thường</strong></li><li><i style="background:#7A5230"></i>Nâu: <strong>bình thường</strong></li></ul>
+          <div class="out js-only" id="stoolOut">Chọn một màu để xem.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. LIÊN HỆ -->
+  <section class="block" id="lien-he">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">08 · Khi cần trợ giúp</span>
+        <h2>Nơi có thể liên hệ</h2>
+        <p class="muted prose">Lưu sẵn trước khi cần. Sau sắp xếp hành chính năm 2025, tên phường/xã của nhiều địa chỉ đã đổi; bấm “Xem bản đồ” để có vị trí và số điện thoại mới nhất.</p>
+      </div>
+      <div class="sos">
+        <div class="first"><div class="n">115</div><strong>Cấp cứu y tế</strong><div class="small muted">Khó thở, co giật, lịm</div></div>
+        <div><div class="n">111</div><strong>Bảo vệ trẻ em</strong><div class="small muted">Tổng đài quốc gia, miễn phí</div></div>
+        <div><div class="n">114</div><strong>Cứu hỏa, cứu nạn</strong><div class="small muted">Hỏa hoạn, mắc kẹt</div></div>
+        <div><div class="n">113</div><strong>Công an</strong><div class="small muted">An ninh, trật tự</div></div>
+      </div>
+
+      <div class="tabs js-only" role="tablist" id="cityTabs"><button class="tab" role="tab" type="button" aria-selected="true">Hà Nội</button><button class="tab" role="tab" type="button" aria-selected="false">TP. Hồ Chí Minh</button><button class="tab" role="tab" type="button" aria-selected="false">Miền Trung</button><button class="tab" role="tab" type="button" aria-selected="false">Tỉnh/thành khác</button></div>
+      <div class="city-stack">
+        <div class="city-group active"><h3 class="nojs-title">Hà Nội</h3><div class="places">
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Nhi Trung ương</h3><span class="small muted">18/879 đường La Thành</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Nhi%20Trung%20%C6%B0%C6%A1ng%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Sản – sơ sinh</span><h3>Bệnh viện Phụ sản Trung ương</h3><span class="small muted">43 Tràng Thi</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Ph%E1%BB%A5%20s%E1%BA%A3n%20Trung%20%C6%B0%C6%A1ng%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Sản – sơ sinh</span><h3>Bệnh viện Phụ sản Hà Nội</h3><span class="small muted">929 đường La Thành</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Ph%E1%BB%A5%20s%E1%BA%A3n%20H%C3%A0%20N%E1%BB%99i%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Khoa nhi</span><h3>Trung tâm Nhi khoa – Bệnh viện Bạch Mai</h3><span class="small muted">78 Giải Phóng</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Trung%20t%C3%A2m%20Nhi%20khoa%20%E2%80%93%20B%E1%BB%87nh%20vi%E1%BB%87n%20B%E1%BA%A1ch%20Mai%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Có khoa nhi</span><h3>Bệnh viện Đa khoa Xanh Pôn</h3><span class="small muted">12 Chu Văn An</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20%C4%90a%20khoa%20Xanh%20P%C3%B4n%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        </div></div>
+        <div class="city-group"><h3 class="nojs-title">TP. Hồ Chí Minh</h3><div class="places">
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Nhi Đồng 1</h3><span class="small muted">341 Sư Vạn Hạnh</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Nhi%20%C4%90%E1%BB%93ng%201%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Nhi Đồng 2</h3><span class="small muted">14 Lý Tự Trọng</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Nhi%20%C4%90%E1%BB%93ng%202%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Nhi đồng Thành phố</h3><span class="small muted">15 Võ Trần Chí</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Nhi%20%C4%91%E1%BB%93ng%20Th%C3%A0nh%20ph%E1%BB%91%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Sản – sơ sinh</span><h3>Bệnh viện Từ Dũ</h3><span class="small muted">284 Cống Quỳnh</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20T%E1%BB%AB%20D%C5%A9%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Sản – sơ sinh</span><h3>Bệnh viện Hùng Vương</h3><span class="small muted">128 Hồng Bàng</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20H%C3%B9ng%20V%C6%B0%C6%A1ng%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        </div></div>
+        <div class="city-group"><h3 class="nojs-title">Miền Trung</h3><div class="places">
+          <div class="place"><span class="kind">Sản – nhi</span><h3>Bệnh viện Phụ sản – Nhi Đà Nẵng</h3><span class="small muted">402 Lê Văn Hiến, Đà Nẵng</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Ph%E1%BB%A5%20s%E1%BA%A3n%20%E2%80%93%20Nhi%20%C4%90%C3%A0%20N%E1%BA%B5ng%20402%20L%C3%AA%20V%C4%83n%20Hi%E1%BA%BFn%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Có trung tâm nhi</span><h3>Bệnh viện Trung ương Huế</h3><span class="small muted">16 Lê Lợi, Huế</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Trung%20%C6%B0%C6%A1ng%20Hu%E1%BA%BF%2016%20L%C3%AA%20L%E1%BB%A3i%2C%20Hu%E1%BA%BF" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Sản – nhi</span><h3>Bệnh viện Sản Nhi Quảng Ngãi</h3><span class="small muted">Quảng Ngãi</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20S%E1%BA%A3n%20Nhi%20Qu%E1%BA%A3ng%20Ng%C3%A3i%20Qu%E1%BA%A3ng%20Ng%C3%A3i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        </div></div>
+        <div class="city-group"><h3 class="nojs-title">Tỉnh/thành khác</h3><div class="places">
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Trẻ em Hải Phòng</h3><span class="small muted">Hải Phòng</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Tr%E1%BA%BB%20em%20H%E1%BA%A3i%20Ph%C3%B2ng%20H%E1%BA%A3i%20Ph%C3%B2ng" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Bệnh viện nhi</span><h3>Bệnh viện Nhi đồng Cần Thơ</h3><span class="small muted">Cần Thơ</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=B%E1%BB%87nh%20vi%E1%BB%87n%20Nhi%20%C4%91%E1%BB%93ng%20C%E1%BA%A7n%20Th%C6%A1%20C%E1%BA%A7n%20Th%C6%A1" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Tìm theo vị trí</span><h3>Bệnh viện nhi gần tôi</h3><span class="small muted">Mở bản đồ để tìm quanh bạn</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=b%E1%BB%87nh%20vi%E1%BB%87n%20nhi" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        </div></div>
+      </div>
+
+      <h3 style="margin-top:36px">Phòng khám & tiêm chủng</h3>
+      <div class="places" id="clinics">
+        <div class="place"><span class="kind">Miễn phí</span><h3>Trạm y tế phường/xã</h3><span class="small muted">Tiêm chủng mở rộng, khám ban đầu bằng BHYT. Hỏi lịch tiêm hằng tháng tại đây.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=tr%E1%BA%A1m%20y%20t%E1%BA%BF%20ph%C6%B0%E1%BB%9Dng%20g%E1%BA%A7n%20t%C3%B4i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        <div class="place"><span class="kind">Tư nhân</span><h3>Phòng khám nhi gần nhà</h3><span class="small muted">Tiện khám ngoài giờ. Nên chọn nơi có bác sĩ chuyên khoa nhi, đọc đánh giá trước.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=ph%C3%B2ng%20kh%C3%A1m%20nhi%20g%E1%BA%A7n%20t%C3%B4i" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        <div class="place"><span class="kind">Tiêm dịch vụ</span><h3>Trung tâm tiêm chủng VNVC</h3><span class="small muted">Chuỗi tiêm chủng có nhiều cơ sở, đầy đủ vắc xin dịch vụ.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=VNVC%20ti%C3%AAm%20ch%E1%BB%A7ng" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        <div class="place"><span class="kind">Tiêm dịch vụ</span><h3>Trung tâm tiêm chủng Long Châu</h3><span class="small muted">Chuỗi tiêm chủng gắn với nhà thuốc Long Châu.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Ti%C3%AAm%20ch%E1%BB%A7ng%20Long%20Ch%C3%A2u" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        <div class="place"><span class="kind">Hỗ trợ cho con bú</span><h3>Tư vấn sữa mẹ</h3><span class="small muted">Nhiều bệnh viện sản có phòng tư vấn nuôi con bằng sữa mẹ. Hỏi khoa sơ sinh nơi bạn sinh.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=t%C6%B0%20v%E1%BA%A5n%20nu%C3%B4i%20con%20b%E1%BA%B1ng%20s%E1%BB%AFa%20m%E1%BA%B9" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        <div class="place"><span class="kind">Mua đồ cần gấp</span><h3>Hiệu thuốc trực đêm</h3><span class="small muted">Nước muối, nhiệt kế, tã… Không tự mua thuốc cho bé dưới 6 tháng.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=nh%C3%A0%20thu%E1%BB%91c%20m%E1%BB%9F%20c%E1%BB%ADa%2024%20gi%E1%BB%9D" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+      </div>
+
+      <h3 style="margin-top:36px">Tìm người giúp việc, bảo mẫu</h3>
+      <div class="two" style="margin-top:14px">
+        <div class="places" id="helpers" style="margin-top:0;grid-template-columns:1fr">
+          <div class="place"><span class="kind">Nhà nước</span><h3>Trung tâm Dịch vụ việc làm</h3><span class="small muted">Mỗi tỉnh/thành có trung tâm thuộc Sở, có thể giới thiệu lao động giúp việc gia đình.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Trung%20t%C3%A2m%20d%E1%BB%8Bch%20v%E1%BB%A5%20vi%E1%BB%87c%20l%C3%A0m" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">VD: bTaskee, JupViec</span><h3>Ứng dụng giúp việc theo giờ</h3><span class="small muted">Đặt dọn dẹp, nấu ăn theo giờ để bố mẹ có thời gian chăm bé. Nhiều nơi có gói giúp việc dài hạn.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=gi%C3%BAp%20vi%E1%BB%87c%20theo%20gi%E1%BB%9D" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+          <div class="place"><span class="kind">Bảo mẫu, điều dưỡng</span><h3>Dịch vụ chăm mẹ và bé sau sinh</h3><span class="small muted">Tắm bé, chăm mẹ sau sinh tại nhà. Hỏi chứng chỉ điều dưỡng hoặc hộ sinh.</span><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=d%E1%BB%8Bch%20v%E1%BB%A5%20ch%C4%83m%20s%C3%B3c%20m%E1%BA%B9%20v%C3%A0%20b%C3%A9%20sau%20sinh%20t%E1%BA%A1i%20nh%C3%A0" target="_blank" rel="noopener">Xem bản đồ ↗</a></div>
+        </div>
+        <div class="panel">
+          <h3 style="font-size:1.05rem;margin-bottom:12px">Trước khi nhận người chăm bé</h3>
+          <ul class="ticks">
+            <li>Xem CCCD, ký hợp đồng ghi rõ việc, giờ, lương, ngày nghỉ</li>
+            <li>Có giấy khám sức khỏe gần đây; đã tiêm ho gà, cúm thì càng tốt</li>
+            <li>Hỏi kinh nghiệm chăm trẻ sơ sinh, có biết sơ cứu hay không</li>
+            <li>Thử việc vài ngày khi có người nhà ở cùng</li>
+            <li>Dặn rõ: ngủ ngửa, không gối, không lắc, không dùng mẹo dân gian, không hút thuốc, rửa tay trước khi bế bé</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mine js-only">
+        <h3>Danh bạ của nhà mình</h3>
+        <p class="muted small" style="margin-top:4px">Lưu số bác sĩ nhi, phòng khám gần nhà, người giúp việc. Chỉ lưu trên trình duyệt này.</p>
+        <form id="mineForm" autocomplete="off">
+          <input type="text" id="mName" placeholder="Tên (VD: BS Lan – nhi)" required aria-label="Tên">
+          <input type="tel" id="mPhone" placeholder="Số điện thoại" required aria-label="Số điện thoại">
+          <input type="text" id="mNote" placeholder="Ghi chú (giờ khám, địa chỉ…)" aria-label="Ghi chú">
+          <button class="btn" type="submit">Thêm</button>
+        </form>
+        <div class="mine-list" id="mineList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap stack">
+    <p><strong>Lưu ý:</strong> Nội dung chỉ để tham khảo, tổng hợp theo khuyến nghị của WHO, Viện Hàn lâm Nhi khoa Hoa Kỳ (AAP), CDC và Bộ Y tế Việt Nam. Trang không thay thế việc thăm khám. Mọi thuốc cho trẻ dưới 6 tháng chỉ dùng khi có chỉ định của bác sĩ.</p>
+    <p>Khẩn cấp: gọi <strong>115</strong>.</p>
+  </div>
+</footer>
+
+<script>
+/* Nội dung đã có sẵn trong HTML. Script này chỉ thêm tương tác; khi JavaScript bị tắt
+   (ví dụ mở file trong trình xem trước của WhatsApp), trang vẫn hiển thị đầy đủ. */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ---------- Tabs ---------- */
+function tabs(tabSel, panelSel, key) {
+  const ts = $$(tabSel), ps = $$(panelSel);
+  const show = i => {
+    ts.forEach((t, j) => t.setAttribute('aria-selected', String(j === i)));
+    ps.forEach((p, j) => p.classList.toggle('active', j === i));
+    store.set(key, i);
+  };
+  ts.forEach((t, i) => t.addEventListener('click', () => show(i)));
+  const start = store.get(key, 0);
+  show(start >= 0 && start < ts.length ? start : 0);
+}
+tabs('#careTabs .tab', '.care-panel', 'careTab');
+tabs('#cityTabs .tab', '.city-group', 'city');
+
+/* ---------- Stomach slider ---------- */
+const stItems = $$('#stomachList li'), stRange = $('#stRange');
+if (stRange && stItems.length) {
+  const upd = () => {
+    const d = stItems[stRange.value].dataset, b = $('#ball');
+    b.style.width = b.style.height = d.px + 'px';
+    $('#stName').textContent = d.name; $('#stMl').textContent = d.ml;
+  };
+  stRange.addEventListener('input', upd); upd();
+}
+
+/* ---------- Checklist ---------- */
+/* Món tự thêm lưu ở 'customChecks' dạng { chỉ số nhóm: [{ id, t }] }; trạng thái tích dùng chung 'checks' với khóa "c<id>". */
+const checkCards = $$('.check-card');
+const boxesIn = el => [...el.querySelectorAll('input[type=checkbox]')];
+function countChecks() {
+  let n = 0, total = 0;
+  checkCards.forEach(card => {
+    const box = boxesIn(card), c = box.filter(x => x.checked).length;
+    n += c; total += box.length; card.querySelector('.cc').textContent = `${c}/${box.length}`;
+  });
+  $('#checkCount').textContent = `Đã có ${n}/${total} món`;
+  $('#checkBar').style.width = (total ? n / total * 100 : 0) + '%';
+}
+function renderCustom(gi) {
+  const saved = store.get('checks', {}), items = store.get('customChecks', {})[gi] || [];
+  checkCards[gi].querySelector('.custom-list').innerHTML = items.map(it => `<div class="custom-row"><label class="check-item" for="ck-c${it.id}"><input type="checkbox" id="ck-c${it.id}" data-k="c${it.id}" ${saved['c' + it.id] ? 'checked' : ''}><span>${esc(it.t)}<small>Món bạn tự thêm</small></span></label><button class="linkbtn" type="button" data-del="${it.id}" aria-label="Xóa ${esc(it.t)}">Xóa</button></div>`).join('');
+}
+checkCards.forEach((card, gi) => {
+  const cat = card.querySelector('h3').firstChild.textContent.trim();
+  card.insertAdjacentHTML('beforeend', `<div class="custom-list"></div><form class="add-item" autocomplete="off"><input type="text" id="add-${gi}" maxlength="80" placeholder="Thêm món khác…" aria-label="Thêm món vào nhóm ${esc(cat)}"><button class="btn ghost" type="submit">Thêm</button></form>`);
+  renderCustom(gi);
+  card.querySelector('.add-item').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = e.target.querySelector('input'), t = input.value.trim();
+    if (!t) { input.focus(); return; }
+    const all = store.get('customChecks', {});
+    (all[gi] = all[gi] || []).push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), t });
+    store.set('customChecks', all);
+    input.value = ''; renderCustom(gi); countChecks(); input.focus();
+  });
+  card.addEventListener('click', e => {
+    const id = e.target.dataset && e.target.dataset.del;
+    if (!id || !e.target.closest('.custom-list')) return;
+    const all = store.get('customChecks', {});
+    all[gi] = (all[gi] || []).filter(it => it.id !== id); store.set('customChecks', all);
+    const d = store.get('checks', {}); delete d['c' + id]; store.set('checks', d);
+    renderCustom(gi); countChecks();
+  });
+});
+const savedChecks = store.get('checks', {});
+$$('#checkGrid input[type=checkbox]:not([data-k^="c"])').forEach(c => { c.checked = !!savedChecks[c.dataset.k]; });
+$('#checkGrid').addEventListener('change', e => {
+  const c = e.target; if (c.type !== 'checkbox') return;
+  const d = store.get('checks', {}); d[c.dataset.k] = c.checked; store.set('checks', d); countChecks();
+});
+$('#checkReset').addEventListener('click', () => { store.set('checks', {}); boxesIn($('#checkGrid')).forEach(c => { c.checked = false; }); countChecks(); });
+countChecks();
+
+/* ---------- Milestones & vaccines ---------- */
+const monthBtns = $$('.month'), monthBlocks = $$('.ms-month');
+function selectMonth(i) {
+  monthBtns.forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+  monthBlocks.forEach((m, j) => m.classList.toggle('active', j === i));
+}
+monthBtns.forEach((b, i) => b.addEventListener('click', () => selectMonth(i)));
+
+const vaxRows = $$('.vax-row[data-day]');
+function markVax(days) {
+  const next = vaxRows.find(r => +r.dataset.day >= days - 3);
+  vaxRows.forEach(r => r.classList.toggle('next', r === next));
+  return next;
+}
+
+/* ---------- Hero: age ---------- */
+const TIPS_BY_WEEK = w => {
+  if (w < 2) return 'Ngủ rất nhiều, nhận ra giọng và mùi của mẹ. Ưu tiên da kề da và bú sớm.';
+  if (w < 4) return 'Bắt đầu nhìn theo mặt người. Cho nằm sấp vài phút khi thức.';
+  if (w < 6) return 'Tỉnh táo hơn vào ban ngày, khóc có thể tăng dần.';
+  if (w < 9) return 'Nụ cười xã giao đầu tiên! Đây cũng là giai đoạn khóc nhiều nhất, cố lên.';
+  if (w < 13) return 'Ê a, đưa tay lên miệng, ngẩng đầu khi nằm sấp.';
+  if (w < 17) return 'Giữ đầu vững hơn, cười thành tiếng, thích cầm đồ chơi.';
+  if (w < 22) return 'Có thể lật, với lấy đồ vật. Đừng để bé một mình trên giường cao.';
+  return 'Bập bẹ, lật hai chiều, ngồi có đỡ. Chuẩn bị ăn dặm khi tròn 6 tháng.';
+};
+let monthPicked = false;
+function renderAge() {
+  const saved = store.get('dob', '');
+  const input = $('#dob');
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  let dob, example = false;
+  if (saved) { dob = new Date(saved + 'T00:00:00'); input.value = saved; }
+  else { dob = new Date(today); dob.setDate(dob.getDate() - 52); example = true; input.value = ''; }
+  const days = Math.round((today - dob) / 86400000);
+  const big = $('#ageBig'), sub = $('#ageSub');
+  if (isNaN(days) || days < 0) { big.textContent = 'Ngày sinh ở tương lai?'; sub.textContent = 'Hãy kiểm tra lại ngày sinh.'; return; }
+  const w = Math.floor(days / 7), d = days % 7;
+  big.innerHTML = (w ? `${w} tuần ` : '') + (d || !w ? `${d} ngày` : '') + (example ? ' <span class="tag">Ví dụ</span>' : '');
+  sub.textContent = `${days} ngày tuổi · khoảng ${Math.floor(days / 30.4)} tháng` + (example ? ' · nhập ngày sinh để xem của bé nhà bạn' : '');
+  const dots = []; for (let i = 0; i < 26; i++) dots.push(`<i class="wk ${i < w ? 'past' : i === w ? 'now' : ''}"></i>`);
+  $('#weeks').innerHTML = dots.join('');
+  $('#ageTip').textContent = days > 182 ? 'Bé đã qua 6 tháng đầu, chúc mừng cả nhà! Đã đến lúc tìm hiểu về ăn dặm.' : TIPS_BY_WEEK(w);
+  const next = markVax(days);
+  $('#ageVax').textContent = next ? next.dataset.short : 'Hỏi bác sĩ lịch tiêm mũi tiếp theo (9 tháng: sởi, bại liệt tiêm mũi 2).';
+  if (!monthPicked) { selectMonth(Math.min(6, Math.floor(days / 30.4))); monthPicked = true; }
+}
+$('#dob').addEventListener('change', e => { store.set('dob', e.target.value); monthPicked = false; renderAge(); });
+$('#dobClear').addEventListener('click', () => { store.set('dob', ''); monthPicked = false; renderAge(); });
+
+/* ---------- Breathing ---------- */
+let breathTimer = null;
+$('#breathBtn').addEventListener('click', () => {
+  const ring = $('#ring'), lbl = $('#breathLabel'), btn = $('#breathBtn'), cnt = $('#breathCount');
+  if (breathTimer) { clearTimeout(breathTimer); breathTimer = null; ring.classList.remove('in'); lbl.textContent = 'Bắt đầu'; btn.textContent = 'Thở cùng tôi'; cnt.textContent = ''; return; }
+  btn.textContent = 'Dừng';
+  const steps = [['Hít vào', true], ['Giữ', true], ['Thở ra', false], ['Nghỉ', false]];
+  let k = 0;
+  const tick = () => {
+    if (k >= 16) { ring.classList.remove('in'); lbl.textContent = 'Tốt lắm'; btn.textContent = 'Thở lại'; cnt.textContent = 'Xong 4 vòng.'; breathTimer = null; return; }
+    const [t, big] = steps[k % 4]; lbl.textContent = t; ring.classList.toggle('in', big);
+    cnt.textContent = `Vòng ${Math.floor(k / 4) + 1}/4`; k++; breathTimer = setTimeout(tick, 4000);
+  };
+  tick();
+});
+
+/* ---------- Myths ---------- */
+$$('.flip').forEach(f => f.addEventListener('click', () => f.setAttribute('aria-pressed', f.getAttribute('aria-pressed') === 'true' ? 'false' : 'true')));
+
+/* ---------- Quiz (câu hỏi đọc từ danh sách tĩnh) ---------- */
+const QUIZ = $$('#quizList .qz').map(d => [d.querySelector('summary').textContent, +d.dataset.a, d.querySelector('.qz-ex').textContent]);
+let qi = 0, score = 0, answered = false;
+function renderQuiz() {
+  if (qi >= QUIZ.length) {
+    $('#quizProg').textContent = 'Hoàn thành';
+    $('#quizQ').textContent = `Bạn đúng ${score}/${QUIZ.length} câu. ${score >= 8 ? 'Bố mẹ siêu hiểu con!' : score >= 5 ? 'Khá lắm, thêm chút nữa thôi.' : 'Không sao, giờ bạn đã biết thêm nhiều điều.'}`;
+    $('#quizBtns').innerHTML = '<button class="btn lamp" type="button" id="quizAgain">Chơi lại</button>';
+    $('#quizAns').hidden = true;
+    $('#quizAgain').addEventListener('click', () => { qi = 0; score = 0; resetBtns(); renderQuiz(); });
+    return;
+  }
+  answered = false;
+  $('#quizProg').textContent = `Câu ${qi + 1}/${QUIZ.length}`;
+  $('#quizScore').textContent = `${score} điểm`;
+  $('#quizQ').textContent = QUIZ[qi][0];
+  $('#quizAns').hidden = true;
+}
+function resetBtns() {
+  $('#quizBtns').innerHTML = '<button class="btn" type="button" data-a="1">Đúng</button><button class="btn ghost" type="button" data-a="0">Sai</button>';
+  bindQuiz();
+}
+function bindQuiz() {
+  $('#quizBtns').querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+    if (answered) return; answered = true;
+    const q = QUIZ[qi], ok = +b.dataset.a === q[1]; if (ok) score++;
+    const a = $('#quizAns'); a.hidden = false; a.className = 'quiz-ans ' + (ok ? 'ok' : 'no');
+    a.innerHTML = `<strong>${ok ? 'Chính xác!' : 'Chưa đúng.'}</strong> Đáp án: ${q[1] ? 'Đúng' : 'Sai'}. ${esc(q[2])}<div style="margin-top:10px"><button class="btn" type="button" id="quizNext">${qi + 1 < QUIZ.length ? 'Câu tiếp' : 'Xem kết quả'}</button></div>`;
+    $('#quizScore').textContent = `${score} điểm`;
+    $('#quizNext').addEventListener('click', () => { qi++; renderQuiz(); });
+  }));
+}
+bindQuiz(); renderQuiz();
+
+/* ---------- Triage ---------- */
+const LVL_TITLE = {};
+$$('.lvl-title').forEach(t => { LVL_TITLE[t.dataset.lv] = t.textContent.trim(); });
+function renderTriage() {
+  const on = $$('.chip[aria-pressed="true"]');
+  const out = $('#triageOut');
+  if (!on.length) { out.className = 'result'; out.innerHTML = '<div class="big">Chọn dấu hiệu bạn thấy</div><p class="muted">Có thể chọn nhiều dấu hiệu. Kết quả theo mức nặng nhất.</p><p class="small muted" style="margin-top:12px">Dù kết quả thế nào, nếu linh cảm của bố mẹ thấy bé “không ổn”, hãy đưa bé đi khám.</p>'; return; }
+  const lv = on.some(c => c.dataset.lv === 'red') ? 'red' : on.some(c => c.dataset.lv === 'amber') ? 'amber' : 'green';
+  const msg = {
+    red: '<p>Gọi <strong>115</strong> hoặc đưa bé đến khoa cấp cứu gần nhất ngay. Không tự cho uống thuốc. Mang theo sổ khám bệnh.</p>',
+    amber: '<p>Liên hệ bác sĩ nhi hoặc đưa bé đi khám trong hôm nay. Nếu bé lừ đừ, bỏ bú hoặc khó thở hơn: chuyển sang cấp cứu.</p>',
+    green: '<p>Những dấu hiệu này thường gặp và lành tính. Tiếp tục theo dõi; đi khám nếu kèm sốt, bỏ bú, hoặc bé có vẻ mệt.</p>'
+  }[lv];
+  out.className = 'result ' + lv;
+  out.innerHTML = `<div class="big">${esc(LVL_TITLE[lv])}</div>${msg}<p class="small muted" style="margin-top:10px">Đã chọn: ${on.map(c => esc(c.textContent)).join('; ')}</p>`;
+}
+$$('.chip').forEach(c => c.addEventListener('click', () => { c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); renderTriage(); }));
+renderTriage();
+
+/* ---------- Fever ---------- */
+function renderFever() {
+  const t = parseFloat(String($('#fTemp').value).replace(',', '.')), young = $('#fAge').value === '0', o = $('#feverOut');
+  let cls = '', txt = '';
+  if (isNaN(t)) { txt = 'Nhập nhiệt độ đo được.'; }
+  else if (t < 36) { cls = 'amber'; txt = '<strong>Nhiệt độ thấp.</strong> Ủ ấm, cho bé da kề da và đo lại. Nếu vẫn dưới 36°C hoặc bé lừ đừ, đưa bé đi khám ngay.'; }
+  else if (t < 37.5) { cls = 'green'; txt = '<strong>Bình thường.</strong>'; }
+  else if (t < 38) { cls = 'green'; txt = '<strong>Hơi ấm.</strong> Cởi bớt quần áo, để phòng thoáng, đo lại sau 15–30 phút.'; }
+  else if (young) { cls = 'red'; txt = '<strong>Bé dưới 3 tháng sốt từ 38°C cần được khám ngay</strong>, kể cả khi bé vẫn bú tốt. Không tự cho uống thuốc hạ sốt.'; }
+  else if (t < 39) { cls = 'amber'; txt = '<strong>Sốt.</strong> Gọi bác sĩ hoặc đi khám trong ngày. Cho bú nhiều hơn, mặc thoáng. Chỉ dùng thuốc hạ sốt theo liều bác sĩ hướng dẫn.'; }
+  else { cls = 'red'; txt = '<strong>Sốt cao.</strong> Đưa bé đi khám ngay, nhất là khi kèm lừ đừ, bỏ bú, khó thở, phát ban.'; }
+  o.className = 'out ' + cls; o.innerHTML = txt;
+}
+$('#fTemp').addEventListener('input', renderFever); $('#fAge').addEventListener('change', renderFever); renderFever();
+
+/* ---------- Stool card ---------- */
+$$('.sw').forEach(b => b.addEventListener('click', () => {
+  $$('.sw').forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true');
+  const name = esc(b.dataset.name), o = $('#stoolOut'); o.className = 'out ' + b.dataset.lv;
+  o.innerHTML = b.dataset.lv === 'red' ? `<strong>${name}: bất thường.</strong> Đưa bé đi khám sớm, mang theo ảnh chụp tã. Phát hiện và mổ trước 60 ngày tuổi giúp kết quả tốt hơn nhiều.` : `<strong>${name}: bình thường.</strong> Màu phân thay đổi theo sữa và lượng bú. Phân đen sau tuần đầu hoặc có máu thì cần đi khám.`;
+}));
+
+/* ---------- Personal contacts ---------- */
+function renderMine() {
+  const list = store.get('mine', []);
+  $('#mineList').innerHTML = list.length ? list.map((c, i) => `<div class="mine-row"><div><strong>${esc(c.n)}</strong>${c.t ? `<div class="small muted">${esc(c.t)}</div>` : ''}</div><div class="row"><span class="ph">${esc(c.p)}</span><button class="linkbtn" type="button" data-copy="${i}">Sao chép</button><button class="linkbtn" type="button" data-del="${i}">Xóa</button></div></div>`).join('')
+    : '<div class="mine-row"><span class="muted small">Chưa có số nào. Thêm số bác sĩ nhi hoặc phòng khám gần nhà nhất trước tiên.</span></div>';
+  $('#mineList').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { const l = store.get('mine', []); l.splice(+b.dataset.del, 1); store.set('mine', l); renderMine(); }));
+  $('#mineList').querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', () => {
+    const p = store.get('mine', [])[+b.dataset.copy].p;
+    const done = () => { b.textContent = 'Đã chép'; setTimeout(() => { b.textContent = 'Sao chép'; }, 1500); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(b.parentElement.querySelector('.ph')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Đã chọn số'; };
+    try { navigator.clipboard.writeText(p).then(done, fallback); } catch (e) { fallback(); }
+  }));
+}
+$('#mineForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('#mName').value.trim(), p = $('#mPhone').value.trim(), t = $('#mNote').value.trim();
+  if (!n || !p) return;
+  const l = store.get('mine', []); l.push({ n, p, t }); store.set('mine', l);
+  e.target.reset(); renderMine();
+});
+renderMine();
+
+/* ---------- Nav highlight ---------- */
+const navLinks = $$('#nav a');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) navLinks.forEach(a => {
+      const on = a.getAttribute('href') === '#' + en.target.id; a.classList.toggle('on', on);
+      if (on) a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  $$('section.block').forEach(s => io.observe(s));
+}
+
+renderAge();
+</script>
