@@ -143,6 +143,23 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .add-item input { flex: 1; padding: 7px 10px; font-size: .92rem; }
 .add-item .btn { padding: 7px 12px; font-size: .9rem; }
 
+/* Daily */
+.daily { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.daily > * { min-width: 0; }
+.daily-log, .daily-tasks { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; }
+.counters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+.counter { background: var(--paper); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.c-top { display: flex; flex-direction: column; }
+.c-name { font-weight: 600; }
+.c-goal { font-size: .75rem; color: var(--muted); }
+.c-val { font-family: var(--display); font-size: 2.4rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.c-btns { display: flex; gap: 6px; margin-top: auto; }
+.c-btns .btn { padding: 8px 10px; font-size: .88rem; }
+.c-btns [data-plus] { flex: 1; }
+.hist-title { font-size: 1rem; margin: 18px 0 6px; }
+.task-group + .task-group { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.task-group h4 { margin: 0 0 4px; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
 /* Milestones */
 .months { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 18px; }
 .month { border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 10px 4px; cursor: pointer; text-align: center; font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; }
@@ -255,7 +272,13 @@ html:not(.js) .js-only { display: none !important; }
 .care-stack, .ms-stack, .city-stack { display: grid; gap: 20px; }
 .nojs-title { margin-bottom: 14px; font-size: 1.35rem; }
 .js .nojs-title { display: none; }
-html:not(.js) .breath, html:not(.js) .triage { grid-template-columns: 1fr; }
+html:not(.js) .breath, html:not(.js) .triage, html:not(.js) .daily { grid-template-columns: 1fr; }
+@media (max-width: 860px) { .daily { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .counters { grid-template-columns: 1fr; }
+  .counter { display: grid; grid-template-columns: 1fr auto; align-items: center; }
+  .c-btns { grid-column: 1 / -1; }
+}
 .next-lbl { font-family: var(--body); font-weight: 500; font-size: .8rem; color: var(--muted); }
 .vax-row:not(.next) .next-lbl { display: none; }
 .quiz-list { display: grid; gap: 10px; max-width: 720px; }
@@ -288,6 +311,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <div class="wrap">
     <a class="brand" href="#top"><i class="brand-dot"></i><span>180 Ngày<span class="full"> Đầu</span></span></a>
     <nav class="nav" id="nav" aria-label="Mục lục">
+      <a href="#moi-ngay">Mỗi ngày</a>
       <a href="#cham-soc">Chăm bé</a>
       <a href="#chuan-bi">Chuẩn bị</a>
       <a href="#phat-trien">Phát triển</a>
@@ -340,11 +364,82 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
     </div>
   </div>
 
+  <!-- 0. MỖI NGÀY -->
+  <section class="block" id="moi-ngay">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">01 · Mỗi ngày</span>
+        <h2>Những việc cần làm mỗi ngày</h2>
+        <p class="muted prose"><span class="js-only">Ghi lại cữ bú, số tã và tích những việc đã xong. Danh sách tự làm mới lúc 0 giờ; số liệu 7 ngày gần nhất được giữ lại để mang theo khi đi khám.</span><span class="nojs-only">Những việc nhỏ lặp lại mỗi ngày trong 6 tháng đầu.</span></p>
+      </div>
+      <div class="daily">
+        <div class="daily-log js-only">
+          <div class="row" style="justify-content:space-between;align-items:baseline"><h3>Nhật ký hôm nay</h3><span class="small muted" id="dayDate"></span></div>
+          <div class="counters" id="counters">
+            <div class="counter">
+              <div class="c-top"><span class="c-name">Cữ bú</span><span class="c-goal">tham khảo 8–12 cữ</span></div>
+              <div class="c-val" id="cFeeds">0</div>
+              <div class="c-btns"><button class="btn ghost" type="button" data-minus="feeds" aria-label="Bớt một cữ bú">−</button><button class="btn lamp" type="button" data-plus="feeds" aria-label="Thêm một cữ bú">+ Thêm</button></div>
+            </div>
+            <div class="counter">
+              <div class="c-top"><span class="c-name">Tã ướt</span><span class="c-goal">từ ngày 5: ít nhất 6</span></div>
+              <div class="c-val" id="cWet">0</div>
+              <div class="c-btns"><button class="btn ghost" type="button" data-minus="wet" aria-label="Bớt một tã ướt">−</button><button class="btn lamp" type="button" data-plus="wet" aria-label="Thêm một tã ướt">+ Thêm</button></div>
+            </div>
+            <div class="counter">
+              <div class="c-top"><span class="c-name">Tã bẩn</span><span class="c-goal">tùy từng bé</span></div>
+              <div class="c-val" id="cDirty">0</div>
+              <div class="c-btns"><button class="btn ghost" type="button" data-minus="dirty" aria-label="Bớt một tã bẩn">−</button><button class="btn lamp" type="button" data-plus="dirty" aria-label="Thêm một tã bẩn">+ Thêm</button></div>
+            </div>
+          </div>
+          <div class="note" id="lastFeed"></div>
+          <h3 class="hist-title">7 ngày gần đây</h3>
+          <div class="scroll-x"><table id="dayHist"></table></div>
+        </div>
+
+        <div class="daily-tasks" id="dayTasks">
+          <div class="js-only">
+            <strong id="dayCount"></strong>
+            <div class="progress" style="margin:8px 0 14px"><i id="dayBar"></i></div>
+          </div>
+          <div class="task-group"><h4>Buổi sáng</h4>
+            <label class="check-item" for="dt-0-0"><input type="checkbox" id="dt-0-0" data-k="0-0"><span>Cho bé uống vitamin D<small>Theo liều bác sĩ chỉ định; trẻ bú mẹ thường được khuyên bổ sung hằng ngày</small></span></label>
+            <label class="check-item" for="dt-0-1"><input type="checkbox" id="dt-0-1" data-k="0-1"><span>Lau mặt, mắt; nhỏ nước muối sinh lý nếu mũi bé có gỉ</span></label>
+            <label class="check-item" for="dt-0-2"><input type="checkbox" id="dt-0-2" data-k="0-2"><span>Kiểm tra rốn: khô, sạch, không đỏ<small>Đến khi rốn rụng và lành hẳn</small></span></label>
+            <label class="check-item" for="dt-0-3"><input type="checkbox" id="dt-0-3" data-k="0-3"><span>Mở rèm cho phòng sáng, thoáng<small>Giúp bé phân biệt ngày và đêm</small></span></label>
+          </div>
+          <div class="task-group"><h4>Trong ngày</h4>
+            <label class="check-item" for="dt-1-0"><input type="checkbox" id="dt-1-0" data-k="1-0"><span>Cho bé nằm sấp chơi 2–3 lần<small>Mỗi lần vài phút khi bé thức, luôn có người trông</small></span></label>
+            <label class="check-item" for="dt-1-1"><input type="checkbox" id="dt-1-1" data-k="1-1"><span>Nói chuyện, hát hoặc đọc sách cho bé nghe</span></label>
+            <label class="check-item" for="dt-1-2"><input type="checkbox" id="dt-1-2" data-k="1-2"><span>Tắm hoặc lau người cho bé<small>Tắm 2–3 lần/tuần là đủ, những ngày khác lau mặt, cổ, mông</small></span></label>
+            <label class="check-item" for="dt-1-3"><input type="checkbox" id="dt-1-3" data-k="1-3"><span>Rửa và tiệt trùng bình sữa, dụng cụ hút sữa</span></label>
+            <label class="check-item" for="dt-1-4"><input type="checkbox" id="dt-1-4" data-k="1-4"><span>Xem da vùng tã, bôi kem chống hăm nếu đỏ</span></label>
+          </div>
+          <div class="task-group"><h4>Buổi tối</h4>
+            <label class="check-item" for="dt-2-0"><input type="checkbox" id="dt-2-0" data-k="2-0"><span>Tạo nếp ngủ: đèn mờ, yên tĩnh, massage nhẹ</span></label>
+            <label class="check-item" for="dt-2-1"><input type="checkbox" id="dt-2-1" data-k="2-1"><span>Kiểm tra chỗ ngủ an toàn<small>Nằm ngửa, nệm phẳng, không gối, chăn dày, thú bông</small></span></label>
+            <label class="check-item" for="dt-2-2"><input type="checkbox" id="dt-2-2" data-k="2-2"><span>Chuẩn bị sẵn tã, khăn, nước uống cho cữ đêm</span></label>
+            <label class="check-item" for="dt-2-3"><input type="checkbox" id="dt-2-3" data-k="2-3"><span>Thống nhất chia ca đêm giữa bố và mẹ</span></label>
+          </div>
+          <div class="task-group"><h4>Cho bố mẹ</h4>
+            <label class="check-item" for="dt-3-0"><input type="checkbox" id="dt-3-0" data-k="3-0"><span>Mẹ uống đủ nước, ăn đủ bữa</span></label>
+            <label class="check-item" for="dt-3-1"><input type="checkbox" id="dt-3-1" data-k="3-1"><span>Ngủ bù ít nhất một giấc khi bé ngủ</span></label>
+            <label class="check-item" for="dt-3-2"><input type="checkbox" id="dt-3-2" data-k="3-2"><span>Dành 10 phút cho bản thân hoặc trò chuyện cùng nhau</span></label>
+          </div>
+          <div class="task-group js-only"><h4>Việc của nhà mình</h4>
+            <div id="dayCustom"></div>
+            <form class="add-item" id="dayAdd" autocomplete="off"><input type="text" id="dayAddInput" maxlength="80" placeholder="Thêm việc lặp lại mỗi ngày…" aria-label="Thêm việc mỗi ngày"><button class="btn ghost" type="submit">Thêm</button></form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 1. CHĂM BÉ -->
   <section class="block" id="cham-soc">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">01 · Hằng ngày</span>
+        <span class="sec-num">02 · Kỹ năng</span>
         <h2>Cách chăm em bé</h2>
         <p class="muted prose">Sáu việc chiếm gần hết một ngày của bố mẹ.<span class="js-only"> Chọn một chủ đề để xem.</span></p>
       </div>
@@ -483,7 +578,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="chuan-bi">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">02 · Sắm sửa</span>
+        <span class="sec-num">03 · Sắm sửa</span>
         <h2>Những thứ cần chuẩn bị</h2>
         <p class="muted prose">Tích vào món đã có.<span class="js-only"> Thiếu món gì, thêm vào cuối mỗi nhóm.</span> Trang sẽ nhớ trên trình duyệt này. Không cần mua hết một lúc: nhóm “Ngủ”, “Vệ sinh” và “Sức khỏe” là quan trọng nhất cho tuần đầu.</p>
       </div>
@@ -549,7 +644,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="phat-trien">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">03 · Thông tin cần biết</span>
+        <span class="sec-num">04 · Thông tin cần biết</span>
         <h2>Bé lớn lên từng tháng</h2>
         <p class="muted prose">Mỗi bé có nhịp riêng, chênh vài tuần là bình thường. Cột “Nên hỏi bác sĩ” là những điều nên mang đi khám để được đánh giá, không phải để lo lắng.</p>
       </div>
@@ -614,7 +709,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="tam-ly">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">04 · Cho bố và mẹ</span>
+        <span class="sec-num">05 · Cho bố và mẹ</span>
         <h2>Tâm lý cần có</h2>
         <p class="muted prose">Mệt, rối, đôi khi muốn khóc là phản ứng bình thường khi cuộc sống đảo lộn. Biết trước những gì sẽ đến giúp cả nhà đỡ hoảng.</p>
       </div>
@@ -679,7 +774,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="hieu-lam">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">05 · Lật thẻ</span>
+        <span class="sec-num">06 · Lật thẻ</span>
         <h2>Những điều hay hiểu lầm</h2>
         <p class="muted prose">Nhiều mẹo truyền miệng có thể gây hại. Chạm vào thẻ để xem sự thật.</p>
       </div>
@@ -705,7 +800,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="thu-vi">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">06 · Đố vui</span>
+        <span class="sec-num">07 · Đố vui</span>
         <h2>Kiến thức thú vị</h2>
         <p class="muted prose">Đúng hay sai? Thử đoán xem bạn hiểu em bé đến đâu.<span class="nojs-only"> Chạm vào từng câu để xem đáp án.</span></p>
       </div>
@@ -743,7 +838,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="bat-thuong">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">07 · Nhận biết sớm</span>
+        <span class="sec-num">08 · Nhận biết sớm</span>
         <h2>Cách nhận biết bất thường</h2>
         <p class="muted prose">Chọn những gì bạn đang thấy ở bé. Công cụ chỉ giúp sắp xếp mức độ khẩn cấp, không thay thế chẩn đoán. Khi phân vân, hãy gọi bác sĩ.</p>
       </div>
@@ -789,7 +884,7 @@ footer { border-top: 1px solid var(--line); padding-block: 32px 48px; font-size:
   <section class="block" id="lien-he">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">08 · Khi cần trợ giúp</span>
+        <span class="sec-num">09 · Khi cần trợ giúp</span>
         <h2>Nơi có thể liên hệ</h2>
         <p class="muted prose">Lưu sẵn trước khi cần. Sau sắp xếp hành chính năm 2025, tên phường/xã của nhiều địa chỉ đã đổi; bấm “Xem bản đồ” để có vị trí và số điện thoại mới nhất.</p>
       </div>
@@ -915,6 +1010,85 @@ if (stRange && stItems.length) {
   };
   stRange.addEventListener('input', upd); upd();
 }
+
+/* ---------- Mỗi ngày ----------
+   'dayLog' = { 'YYYY-MM-DD': { done: {khóa việc: true}, feeds: [mốc thời gian], wet, dirty } }, giữ 14 ngày gần nhất.
+   'dayTasksCustom' = [{ id, t }] — việc tự thêm, lặp lại mỗi ngày. */
+const pad2 = n => String(n).padStart(2, '0');
+const dayKey = (d = new Date()) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+const hm = ts => { const d = new Date(ts); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
+let today = dayKey();
+const emptyDay = () => ({ done: {}, feeds: [], wet: 0, dirty: 0 });
+function updateToday(fn) {
+  const log = store.get('dayLog', {});
+  fn(log[today] = log[today] || emptyDay());
+  Object.keys(log).sort().slice(0, -14).forEach(k => delete log[k]);
+  store.set('dayLog', log);
+  renderDay();
+}
+const dayBoxes = () => $$('#dayTasks input[type=checkbox]');
+function renderDayCustom() {
+  $('#dayCustom').innerHTML = store.get('dayTasksCustom', []).map(it => `<div class="custom-row"><label class="check-item" for="dt-c${it.id}"><input type="checkbox" id="dt-c${it.id}" data-k="c${it.id}"><span>${esc(it.t)}</span></label><button class="linkbtn" type="button" data-del="${it.id}" aria-label="Xóa ${esc(it.t)}">Xóa</button></div>`).join('');
+}
+function renderDay() {
+  const log = store.get('dayLog', {}), t = log[today] || emptyDay();
+  const boxes = dayBoxes();
+  boxes.forEach(c => { c.checked = !!t.done[c.dataset.k]; });
+  const n = boxes.filter(c => c.checked).length;
+  $('#dayCount').textContent = `Hôm nay xong ${n}/${boxes.length} việc`;
+  $('#dayBar').style.width = (boxes.length ? n / boxes.length * 100 : 0) + '%';
+  $('#cFeeds').textContent = t.feeds.length; $('#cWet').textContent = t.wet; $('#cDirty').textContent = t.dirty;
+  $('#dayDate').textContent = new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'numeric' });
+
+  const feeds = Object.keys(log).sort().flatMap(k => log[k].feeds || []), last = feeds[feeds.length - 1];
+  if (last) {
+    const mins = Math.max(0, Math.floor((Date.now() - last) / 60000));
+    $('#lastFeed').innerHTML = `<b>Lần bú gần nhất</b>${hm(last)} · ${mins < 1 ? 'vừa xong' : (mins < 60 ? mins + ' phút' : Math.floor(mins / 60) + ' giờ ' + (mins % 60) + ' phút') + ' trước'}`;
+  } else {
+    $('#lastFeed').innerHTML = '<b>Lần bú gần nhất</b>Bấm “+ Thêm” ở ô Cữ bú mỗi khi bé bú xong để theo dõi giờ bú.';
+  }
+
+  const rows = [];
+  for (let i = 1; i <= 7; i++) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const l = log[dayKey(d)]; if (!l) continue;
+    rows.push(`<tr><td>${d.getDate()}/${d.getMonth() + 1}</td><td class="num">${(l.feeds || []).length}</td><td class="num">${l.wet || 0}</td><td class="num">${l.dirty || 0}</td><td class="num">${Object.values(l.done || {}).filter(Boolean).length}</td></tr>`);
+  }
+  $('#dayHist').innerHTML = rows.length
+    ? '<tr><th>Ngày</th><th>Cữ bú</th><th>Tã ướt</th><th>Tã bẩn</th><th>Việc xong</th></tr>' + rows.join('')
+    : '<tr><td class="muted small">Chưa có số liệu những ngày trước. Số liệu hôm nay sẽ hiện ở đây từ ngày mai.</td></tr>';
+}
+$('#dayTasks').addEventListener('change', e => {
+  const c = e.target; if (c.type !== 'checkbox') return;
+  updateToday(t => { if (c.checked) t.done[c.dataset.k] = true; else delete t.done[c.dataset.k]; });
+});
+$('#dayTasks').addEventListener('click', e => {
+  const id = e.target.dataset && e.target.dataset.del; if (!id) return;
+  store.set('dayTasksCustom', store.get('dayTasksCustom', []).filter(it => it.id !== id));
+  renderDayCustom(); updateToday(t => { delete t.done['c' + id]; });
+});
+$('#dayAdd').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = $('#dayAddInput'), t = input.value.trim();
+  if (!t) { input.focus(); return; }
+  const l = store.get('dayTasksCustom', []); l.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), t }); store.set('dayTasksCustom', l);
+  input.value = ''; renderDayCustom(); renderDay(); input.focus();
+});
+$('#counters').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const plus = b.dataset.plus, minus = b.dataset.minus;
+  updateToday(t => {
+    if (plus === 'feeds') t.feeds.push(Date.now());
+    else if (minus === 'feeds') t.feeds.pop();
+    else if (plus) t[plus]++;
+    else if (minus) t[minus] = Math.max(0, t[minus] - 1);
+  });
+});
+/* Sang ngày mới khi trang vẫn mở: làm mới danh sách; cập nhật "x phút trước" mỗi phút. */
+function tickDay() { today = dayKey(); renderDay(); }
+setInterval(tickDay, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) tickDay(); });
+renderDayCustom(); renderDay();
 
 /* ---------- Checklist ---------- */
 /* Món tự thêm lưu ở 'customChecks' dạng { chỉ số nhóm: [{ id, t }] }; trạng thái tích dùng chung 'checks' với khóa "c<id>". */
@@ -1131,12 +1305,19 @@ $('#mineForm').addEventListener('submit', e => {
 renderMine();
 
 /* ---------- Nav highlight ---------- */
-const navLinks = $$('#nav a');
+/* Chỉ cuộn ngang thanh menu. Không dùng scrollIntoView: nó cuộn cả trang và cắt ngang cú vuốt của người dùng. */
+const nav = $('#nav'), navLinks = $$('#nav a');
+let activeId = '';
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver(es => es.forEach(en => {
-    if (en.isIntersecting) navLinks.forEach(a => {
-      const on = a.getAttribute('href') === '#' + en.target.id; a.classList.toggle('on', on);
-      if (on) a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    if (!en.isIntersecting || en.target.id === activeId) return;
+    activeId = en.target.id;
+    navLinks.forEach(a => {
+      const on = a.getAttribute('href') === '#' + activeId; a.classList.toggle('on', on);
+      if (on && nav.scrollWidth > nav.clientWidth) {
+        const left = a.offsetLeft - nav.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2;
+        nav.scrollTo({ left: Math.max(0, left), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }
     });
   }), { rootMargin: '-40% 0px -55% 0px' });
   $$('section.block').forEach(s => io.observe(s));
